@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="service_base" />
+        <module name="service_management" />
+        <module name="common_utils01" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common_utils" target="8" />
+      <module name="management" target="8" />
+      <module name="service_regulator" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common" options="-parameters" />
+      <module name="common_utils" options="-parameters" />
+      <module name="common_utils01" options="-parameters" />
+      <module name="management" options="-parameters" />
+      <module name="service" options="" />
+      <module name="service_base" options="-parameters" />
+      <module name="service_management" options="-parameters" />
+    </option>
+  </component>
+</project>

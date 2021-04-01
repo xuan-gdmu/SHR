@@ -2,6 +2,7 @@ package com.lwx.management.service;
 
 import com.lwx.management.entity.Information;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>

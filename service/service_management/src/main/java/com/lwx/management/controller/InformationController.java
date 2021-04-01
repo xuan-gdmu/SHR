@@ -39,7 +39,6 @@ public class InformationController {
         return MyResult.ok().data("items",list);
     }
 
-
     @ApiOperation(value = "逻辑删除讲师")
     @DeleteMapping("{id}")
     public MyResult removeInformation(@ApiParam(name = "id", value = "ID", required = true)
@@ -86,10 +85,10 @@ public class InformationController {
 
     //4 条件查询带分页的方法
     @PostMapping("pageInformationCondition/{current}/{limit}")
-    public MyResult pageTeacherCondition(@PathVariable long current,@PathVariable long limit,
+    public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
                                   @RequestBody(required = false) InformationQuery informationQuery) {
         //创建page对象
-        Page<Information> pageTeacher = new Page<>(current,limit);
+        Page<Information> informationPage = new Page<>(current,limit);
 
         //构建条件
         QueryWrapper<Information> wrapper = new QueryWrapper<>();
@@ -115,13 +114,13 @@ public class InformationController {
         }
 
         //排序
-        wrapper.orderByDesc("joinDate");
+        wrapper.orderByDesc("join_date");
 
         //调用方法实现条件查询分页
-        informationService.page(pageTeacher,wrapper);
+        informationService.page(informationPage,wrapper);
 
-        long total = pageTeacher.getTotal();//总记录数
-        List<Information> records = pageTeacher.getRecords(); //数据list集合
+        long total = informationPage.getTotal();//总记录数
+        List<Information> records = informationPage.getRecords(); //数据list集合
         return MyResult.ok().data("total",total).data("rows",records);
     }
 
@@ -137,14 +136,14 @@ public class InformationController {
 
     //根据讲师id进行查询
     @GetMapping("getInformationById/{id}")
-    public MyResult getTeacher(@PathVariable String id) {
+    public MyResult getInformationById(@PathVariable String id) {
         Information information = informationService.getById(id);
         return MyResult.ok().data("information",information);
     }
 
     //讲师修改功能
     @PostMapping("updateInformation")
-    public MyResult updateTeacher(@RequestBody Information information) {
+    public MyResult updateInformation(@RequestBody Information information) {
         boolean flag = informationService.updateById(information);
         if(flag) {
             return MyResult.ok();

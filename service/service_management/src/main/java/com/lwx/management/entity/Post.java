@@ -36,7 +36,7 @@ public class Post implements Serializable {
 
     private String remark;
 
-
+    private String pdeptno;
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date gmtCreate;

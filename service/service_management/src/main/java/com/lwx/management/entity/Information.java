@@ -45,7 +45,7 @@ public class Information implements Serializable {
     private String location;
 
     private String remark;
-
+    @TableField(fill = FieldFill.INSERT)
     private Date joinDate;
 
     private String staffType;
