@@ -29,14 +29,16 @@ public class Dept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "deptno", type = IdType.ID_WORKER_STR)
-    private String deptno;
+    @TableId(value = "id", type = IdType.ID_WORKER_STR)
+    private String id;
 
     private String dname;
 
     private String dmanager;
 
     private Integer dnumber;
+
+    private String description;
 
     private String remarks;
 

@@ -9,8 +9,8 @@ import lombok.Data;
  */
 @Data
 public class PostVo {
-    private String pno;
+    private String id;
 
-    private String pname;
+    private String dname;
 
 }

@@ -1,8 +1,11 @@
 package com.lwx.management.service;
 
+import com.lwx.management.entity.Dept;
 import com.lwx.management.entity.Post;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,5 @@ import org.springframework.stereotype.Service;
  */
 
 public interface PostService extends IService<Post> {
-
+    List<Post> getMyAllPost() ;
 }

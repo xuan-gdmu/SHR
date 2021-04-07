@@ -1,6 +1,7 @@
 package com.lwx.management.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.lwx.common.MyResult;
 import com.lwx.management.entity.Dept;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/management/dept")
+@CrossOrigin
 public class DeptController {
 
     @Autowired
@@ -43,10 +46,18 @@ public class DeptController {
         return MyResult.ok();
     }
 
+    @GetMapping("getDept")
+    public MyResult getDept(){
+        QueryWrapper<Dept> deptQueryWrapper = new QueryWrapper<>();
+        deptQueryWrapper.orderByDesc("id");
+        List<Dept> depts = deptService.list(deptQueryWrapper);
+        return MyResult.ok().data("data",depts);
+    }
+
     //获取所有组织架构，用于显示
     @GetMapping("getList")
     public MyResult getList(){
-        List<DeptVo> deptVos = deptService.deptVoList();
+        List<DeptVo> deptVos = deptService.deptVoList(postService);
         return MyResult.ok().data("items", deptVos);
     }
 
@@ -64,8 +75,11 @@ public class DeptController {
     @ApiOperation(value = "逻辑删除部门")
     @DeleteMapping("{id}")
     public MyResult removeDeptById(@ApiParam(name = "id", value = "部门ID", required = true)
-                           @PathVariable String id) {
-        boolean flag = deptService.removeById(id);
+                           @PathVariable ArrayList<String> id) {
+        boolean flag = false;
+        for(int i = 0;i < id.size();i++){
+            flag = deptService.removeById(id.get(i));
+        }
         if(flag) {
             return MyResult.ok();
         } else {

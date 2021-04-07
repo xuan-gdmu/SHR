@@ -1,6 +1,8 @@
 package com.lwx.management.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.api.R;
 import com.lwx.common.MyResult;
 import com.lwx.management.entity.Dept;
 import com.lwx.management.entity.Post;
@@ -9,6 +11,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,11 +26,21 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/management/post")
+@CrossOrigin
 public class PostController {
 
     @Autowired
     private PostService postService;
 
+
+    //根据岗位id进行查询
+    @GetMapping("{id}")
+    public MyResult getPostByDeptId(@PathVariable String id) {
+        QueryWrapper<Post> postQueryWrapper = new QueryWrapper<>();
+        postQueryWrapper.eq("pdeptno",id);
+        List<Post> postList = postService.list(postQueryWrapper);
+        return MyResult.ok().data("post",postList);
+    }
     //手动添加公司部门
     @PostMapping("addPost")
     public MyResult addPost(@RequestBody Post post){
@@ -35,12 +51,15 @@ public class PostController {
             return MyResult.error();
         }
     }
-    //删除部门的方法
+    //删除岗位的方法
     @ApiOperation(value = "逻辑删除岗位")
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteById/{id}")
     public MyResult removeDeptById(@ApiParam(name = "id", value = "岗位ID", required = true)
-                                   @PathVariable String id) {
-        boolean flag = postService.removeById(id);
+                                   @PathVariable ArrayList<String> id) {
+        boolean flag = false;
+        for (int i = 0; i < id.size(); i++) {
+            flag = postService.removeById(id.get(i));
+        }
         if(flag) {
             return MyResult.ok();
         } else {
@@ -48,7 +67,7 @@ public class PostController {
         }
     }
 
-    //讲师修改功能
+
     @PostMapping("updatePost")
     public MyResult updatePost(@RequestBody Post post) {
         boolean flag = postService.updateById(post);

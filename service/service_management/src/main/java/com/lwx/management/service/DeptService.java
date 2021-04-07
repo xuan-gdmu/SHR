@@ -20,7 +20,8 @@ import java.util.List;
 public interface DeptService extends IService<Dept> {
 
 
-    List<DeptVo> deptVoList();
 
     void saveDept(MultipartFile file, DeptService deptService,PostService postService);
+
+    List<DeptVo> deptVoList(PostService postService);
 }

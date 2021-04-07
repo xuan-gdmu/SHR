@@ -6,14 +6,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwx.common.MyResult;
 import com.lwx.management.entity.Information;
 import com.lwx.management.entity.vo.InformationQuery;
+import com.lwx.management.entity.vo.InformationVo;
 import com.lwx.management.service.InformationService;
 import com.lwx.servicebase.exceptionhandler.LWXException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +43,7 @@ public class InformationController {
         return MyResult.ok().data("items",list);
     }
 
-    @ApiOperation(value = "逻辑删除讲师")
+    @ApiOperation(value = "逻辑删除信息")
     @DeleteMapping("{id}")
     public MyResult removeInformation(@ApiParam(name = "id", value = "ID", required = true)
                            @PathVariable String id) {
@@ -71,19 +75,20 @@ public class InformationController {
         //调用方法实现分页
         //调用方法时候，底层封装，把分页所有数据封装到pageTeacher对象里面
         informationService.page(informationPage,null);
+        //总记录数
+        long total = informationPage.getTotal();
+        //数据list集合
+        List<Information> records = informationPage.getRecords();
 
-        long total = informationPage.getTotal();//总记录数
-        List<Information> records = informationPage.getRecords(); //数据list集合
-
-//        Map map = new HashMap();
-//        map.put("total",total);
-//        map.put("rows",records);
-//        return R.ok().data(map);
+        /*Map map = new HashMap();
+        map.put("total",total);
+        map.put("rows",records);
+        return R.ok().data(map);*/
 
         return MyResult.ok().data("total",total).data("rows",records);
     }
 
-    //4 条件查询带分页的方法
+
     @PostMapping("pageInformationCondition/{current}/{limit}")
     public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
                                   @RequestBody(required = false) InformationQuery informationQuery) {
@@ -118,38 +123,71 @@ public class InformationController {
 
         //调用方法实现条件查询分页
         informationService.page(informationPage,wrapper);
-
-        long total = informationPage.getTotal();//总记录数
-        List<Information> records = informationPage.getRecords(); //数据list集合
+        //总记录数
+        long total = informationPage.getTotal();
+        //数据list集合
+        List<Information> records = informationPage.getRecords();
         return MyResult.ok().data("total",total).data("rows",records);
     }
 
     @PostMapping("addInformation")
-    public MyResult addInformation(@RequestBody Information information) {
-        boolean save = informationService.save(information);
-        if(save) {
-            return MyResult.ok();
-        } else {
-            return MyResult.error();
+    public MyResult addInformation(@RequestBody InformationVo informationvo) {
+        Information information = new Information();
+        try{
+            if(informationvo.getJoinDate() != null && informationvo.getBornDate() != null && informationvo.getGetPositionDate() != null){
+                informationvo.setJoinDate(informationvo.getJoinDate().substring(0,10));
+                informationvo.setGetPositionDate(informationvo.getGetPositionDate().substring(0,10));
+                informationvo.setBornDate(informationvo.getBornDate().substring(0,10));
+                information.setJoinDate((new SimpleDateFormat("yyyy-MM-dd")).parse(informationvo.getJoinDate()));
+                information.setGetPositionDate(new SimpleDateFormat("yyyy-MM-dd").parse(informationvo.getGetPositionDate()));
+                information.setBornDate(new SimpleDateFormat("yyyy-MM-dd").parse(informationvo.getBornDate()));
+                BeanUtils.copyProperties(informationvo,information);
+            }
+            boolean save = informationService.save(information);
+            if(save) {
+                return MyResult.ok();
+            } else {
+                return MyResult.error();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        return MyResult.error();
     }
 
-    //根据讲师id进行查询
+
     @GetMapping("getInformationById/{id}")
     public MyResult getInformationById(@PathVariable String id) {
         Information information = informationService.getById(id);
         return MyResult.ok().data("information",information);
     }
 
-    //讲师修改功能
+
     @PostMapping("updateInformation")
-    public MyResult updateInformation(@RequestBody Information information) {
-        boolean flag = informationService.updateById(information);
-        if(flag) {
-            return MyResult.ok();
-        } else {
-            return MyResult.error();
+    public MyResult updateInformation(@RequestBody InformationVo informationvo) {
+        Information information = new Information();
+        try{
+            if(informationvo.getJoinDate() != null && informationvo.getBornDate() != null && informationvo.getGetPositionDate() != null){
+                informationvo.setJoinDate(informationvo.getJoinDate().substring(0,10));
+                informationvo.setGetPositionDate(informationvo.getGetPositionDate().substring(0,10));
+                informationvo.setBornDate(informationvo.getBornDate().substring(0,10));
+                information.setJoinDate((new SimpleDateFormat("yyyy-MM-dd")).parse(informationvo.getJoinDate()));
+                information.setGetPositionDate(new SimpleDateFormat("yyyy-MM-dd").parse(informationvo.getGetPositionDate()));
+                information.setBornDate(new SimpleDateFormat("yyyy-MM-dd").parse(informationvo.getBornDate()));
+                BeanUtils.copyProperties(informationvo,information);
+            }
+            boolean flag = informationService.updateById(information);
+            if(flag) {
+                return MyResult.ok();
+            } else {
+                return MyResult.error();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        return MyResult.error();
+
+
     }
 }
 

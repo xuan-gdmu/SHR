@@ -44,7 +44,7 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
         }
 
         //获取一级分类id值
-        String pid = existDept.getDeptno();
+        String pid = existDept.getId();
 
         //添加二级分类
         //判断二级分类是否重复
@@ -53,7 +53,7 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
             existTwoSubject = new Post();
             existTwoSubject.setPdeptno(pid);
             //二级分类名称
-            existTwoSubject.setPname(deptData.getPostName());
+            existTwoSubject.setDname(deptData.getPostName());
             postService.save(existTwoSubject);
         }
     }
@@ -69,7 +69,7 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
     //判断岗位不能重复添加
     private Post existPost(PostService postService, String name, String pid) {
         QueryWrapper<Post> wrapper = new QueryWrapper<>();
-        wrapper.eq("pname",name);
+        wrapper.eq("dname",name);
         wrapper.eq("pdeptno",pid);
         Post post = postService.getOne(wrapper);
         return post;

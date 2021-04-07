@@ -3,6 +3,7 @@ package com.lwx.management.entity.vo;
 import javafx.geometry.Pos;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +13,9 @@ import java.util.List;
  */
 @Data
 public class DeptVo {
-    private String deptno;
+    private String id;
 
     private String dname;
 
-    private List<PostVo> postVo;
+    private List<PostVo> children= new ArrayList<>();
 }
