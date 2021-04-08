@@ -37,7 +37,7 @@ public class PostController {
     @GetMapping("{id}")
     public MyResult getPostByDeptId(@PathVariable String id) {
         QueryWrapper<Post> postQueryWrapper = new QueryWrapper<>();
-        postQueryWrapper.eq("pdeptno",id);
+        postQueryWrapper.eq("id",id);
         List<Post> postList = postService.list(postQueryWrapper);
         return MyResult.ok().data("post",postList);
     }
