@@ -17,11 +17,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common" target="1.8" />
       <module name="common_utils" target="8" />
-      <module name="common_utils01" target="1.8" />
       <module name="management" target="8" />
-      <module name="service_base" target="1.8" />
       <module name="service_oss" target="1.8" />
       <module name="service_oss (2) (com.lwx)" target="1.8" />
       <module name="service_regulator" target="8" />

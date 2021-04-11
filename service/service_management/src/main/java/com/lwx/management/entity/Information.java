@@ -63,7 +63,7 @@ public class Information implements Serializable {
 
     private String identity;
 
-    private String sex;
+    private Boolean sex;
 
     private Date bornDate;
 

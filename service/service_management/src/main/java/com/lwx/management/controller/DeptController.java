@@ -9,6 +9,7 @@ import com.lwx.management.entity.Post;
 import com.lwx.management.entity.vo.DeptVo;
 import com.lwx.management.service.DeptService;
 import com.lwx.management.service.PostService;
+import com.lwx.servicebase.exceptionhandler.LWXException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,10 @@ public class DeptController {
     @PostMapping("addDept")
     public MyResult addDept(MultipartFile file) {
         //上传过来excel文件
+
         deptService.saveDept(file,deptService, postService);
         return MyResult.ok();
+
     }
 
     @GetMapping("getDept")
@@ -87,7 +90,7 @@ public class DeptController {
         }
     }
 
-    //讲师修改功能
+    //修改功能
     @PostMapping("updateDept")
     public MyResult updateDept(@RequestBody Dept dept) {
         boolean flag = deptService.updateById(dept);

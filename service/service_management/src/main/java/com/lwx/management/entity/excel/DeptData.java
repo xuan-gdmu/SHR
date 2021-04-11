@@ -10,10 +10,10 @@ import lombok.Data;
  */
 @Data
 public class DeptData {
-    @ExcelProperty(index = 0)
+    @ExcelProperty(value = "部门名称",index = 0)
     private String deptName;
-    @ExcelProperty(index = 1)
+    @ExcelProperty(value = "部门经理名称",index = 1)
     private String deptManager;
-    @ExcelProperty(index = 2)
+    @ExcelProperty(value = "岗位名称",index = 2)
     private String postName;
 }

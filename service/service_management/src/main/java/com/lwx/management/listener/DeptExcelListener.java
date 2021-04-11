@@ -28,7 +28,7 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
     public void invoke(DeptData deptData, AnalysisContext analysisContext) {
 
         if(deptData == null) {
-            throw new LWXException(20001,"文件数据为空");
+            throw new LWXException(20010,"文件数据为空");
         }
 
         //一行一行读取，每次读取有两个值，第一个值一级分类，第二个值二级分类
@@ -58,7 +58,12 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
         }
     }
 
-    //判断部门不能重复添加
+    /**判断部门不能重复添加
+     *
+     * @param deptService
+     * @param name
+     * @return
+     */
     private Dept existDept(DeptService deptService,String name) {
         QueryWrapper<Dept> wrapper = new QueryWrapper<>();
         wrapper.eq("dname",name);

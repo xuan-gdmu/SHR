@@ -64,5 +64,9 @@ public class MemberController {
         Member member = memberService.getById(memberId);
         return MyResult.ok().data("userInfo",member);
     }
+    @PostMapping("logout")
+    public MyResult logout() {
+        return MyResult.ok();
+    }
 }
 

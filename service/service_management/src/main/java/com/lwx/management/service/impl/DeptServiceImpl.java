@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,13 +69,15 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     }
 
     @Override
-    public void saveDept(MultipartFile file, DeptService deptService, PostService postService) {
+    public void saveDept(MultipartFile file, DeptService deptService, PostService postService){
+        //文件输入流
+        InputStream in = null;
+        DeptExcelListener deptExcelListener = new DeptExcelListener(deptService, postService);
         try {
-            //文件输入流
-            InputStream in = file.getInputStream();
-            //调用方法进行读取
-            EasyExcel.read(in, DeptData.class, new DeptExcelListener(deptService,postService)).sheet().doRead();
-        } catch (Exception e) {
+            in = file.getInputStream();
+            EasyExcel.read(in, DeptData.class, deptExcelListener).sheet().doRead();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

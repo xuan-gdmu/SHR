@@ -14,8 +14,7 @@ public final class MD5 {
 
     @Test
     public void Mytest(){
-
-        System.out.println(MD5.encrypt("111111"));
+        System.out.println(encrypt("admin"));
     }
     public static String encrypt(String strSrc) {
         try {

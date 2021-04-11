@@ -33,11 +33,23 @@ public class PostController {
     private PostService postService;
 
 
-    //根据岗位id进行查询
+    /** 根据岗位id进行查询
+     */
     @GetMapping("{id}")
-    public MyResult getPostByDeptId(@PathVariable String id) {
+    public MyResult getPostById(@PathVariable String id) {
+        Post post = postService.getById(id);
+        return MyResult.ok().data("post",post);
+    }
+
+    /**
+     * 根据部门id外键查找相应岗位
+     * @param id
+     * @return
+     */
+    @GetMapping("/postList/{id}")
+    public MyResult getPostByPdeptno(@PathVariable String id) {
         QueryWrapper<Post> postQueryWrapper = new QueryWrapper<>();
-        postQueryWrapper.eq("id",id);
+        postQueryWrapper.eq("pdeptno",id);
         List<Post> postList = postService.list(postQueryWrapper);
         return MyResult.ok().data("post",postList);
     }

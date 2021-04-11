@@ -112,14 +112,14 @@ public class InformationController {
             wrapper.eq("staff_type",level);
         }
         if(!StringUtils.isEmpty(begin)) {
-            wrapper.ge("joinDate",begin);
+            wrapper.ge("join_date",begin);
         }
         if(!StringUtils.isEmpty(end)) {
-            wrapper.le("joinDate",end);
+            wrapper.le("join_date",end);
         }
 
         //排序
-        wrapper.orderByDesc("join_date");
+        wrapper.orderByDesc("gmt_create");
 
         //调用方法实现条件查询分页
         informationService.page(informationPage,wrapper);
@@ -151,8 +151,8 @@ public class InformationController {
             }
         }catch(Exception e){
             e.printStackTrace();
+            return MyResult.error().message("请规范填写所有必填项");
         }
-        return MyResult.error();
     }
 
 
