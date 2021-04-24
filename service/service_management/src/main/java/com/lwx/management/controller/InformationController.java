@@ -81,12 +81,12 @@ public class InformationController {
         if(!StringUtils.isEmpty(end)) {
             wrapper.le("join_date",end);
         }
+        wrapper.eq("is_delete", 0);
         current = (current - 1) * 10;
         List<Information> informationPageList = informationService.getInformationPageList(wrapper, current, limit);
         int count = informationService.count(wrapper);
         //数据list集合
-        List<Information> records = informationPageList;
-        return MyResult.ok().data("total",count).data("rows",records);
+        return MyResult.ok().data("total",count).data("rows",informationPageList);
     }
 
     @ApiOperation(value = "新增员工档案")

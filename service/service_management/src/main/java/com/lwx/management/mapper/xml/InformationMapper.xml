@@ -11,6 +11,7 @@
                t.`email`        as   email,
                t.`join_date`    as   join_date,
                t.`staff_type`   as   staff_type,
+               t.`is_delete`    as   is_delete,
                t.`staff_status` as   staff_status,
                t.`gmt_create`   as   gmt_create
         FROM `information` t LEFT JOIN `dept` d     on t.`deptno` = d.`id`
