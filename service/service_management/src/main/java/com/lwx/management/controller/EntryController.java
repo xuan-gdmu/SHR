@@ -48,7 +48,6 @@ public class EntryController {
         return MyResult.ok().data("entry",byId);
     }
 
-
     //手动添加
     @PostMapping("addEntry")
     public MyResult addEntry(@RequestBody EntryVo entryVo){
@@ -70,6 +69,8 @@ public class EntryController {
             return MyResult.error();
         }
     }
+
+
     //删除岗位的方法
     @ApiOperation(value = "逻辑删除岗位")
     @DeleteMapping("/deleteById/{id}")

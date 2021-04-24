@@ -1,5 +1,6 @@
 package com.lwx.ucenter.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwx.common.MD5;
 import com.lwx.servicebase.exceptionhandler.LWXException;
@@ -13,6 +14,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 
 /**
  * <p>
@@ -24,6 +27,7 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
+
 
 
     @Autowired
@@ -126,5 +130,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         member.setIsDisabled(false);
         member.setAvatar("https://edu-16888.oss-cn-guangzhou.aliyuncs.com/2021/04/06/343578caa7e049498c40fbd889ddca0a111.jpg");
         baseMapper.insert(member);
+    }
+
+    @Override
+    public List<Member> getMemberList(Wrapper<Member> queryWrapper, long current, long limit) {
+        return null;
     }
 }

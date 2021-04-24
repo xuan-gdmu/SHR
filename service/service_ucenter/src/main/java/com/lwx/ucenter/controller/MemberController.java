@@ -7,10 +7,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwx.common.MyResult;
 import com.lwx.ucenter.entity.Member;
 import com.lwx.ucenter.service.MemberService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -85,38 +92,93 @@ public class MemberController {
      * @return 分页查询List列表
      *
      */
-//    @PostMapping("pageUserCondition/{current}/{limit}")
-//    public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
-//                                  @RequestBody(required = false) Member member) {
-//        //创建page对象
-//        Page<Member> memberPage = new Page<>(current,limit);
-//
-//        //构建条件
-//        QueryWrapper<Member> wrapper = new QueryWrapper<>();
-//        // 多条件组合查询
-//        // mybatis学过 动态sql
-//        String name = member.getMobile();
-//        String  sex = member.getSex().toString();
-//        //判断条件值是否为空，如果不为空拼接条件
-//        if(!StringUtils.isEmpty(name)) {
-//            //构建条件
-//            wrapper.like("name",name);
-//        }
-//        if(!StringUtils.isEmpty(sex)) {
-//            wrapper.eq("sex",sex);
-//        }
-//
-//        //排序
-//        wrapper.orderByDesc("gmt_create");
+    @PostMapping("pageUserCondition/{current}/{limit}")
+    public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
+                                  @RequestBody(required = false) Member member) {
+        //创建page对象
+        Page<Member> memberPage = new Page<>(current,limit);
 
-//        //调用方法实现条件查询分页
-//        memberService.page(memberPage,wrapper);
-//        //总记录数
-//        List<Member> informationPageList = memberService.li(wrapper, current, limit);
-//        long total = informationPage.getTotal();
-//        //数据list集合
-//        List<Information> records = informationPageList;
-//        return MyResult.ok().data("total",total).data("rows",records);
-//    }
+        //构建条件
+        QueryWrapper<Member> wrapper = new QueryWrapper<>();
+        // 多条件组合查询
+        // mybatis学过 动态sql
+        String mobile = member.getMobile();
+        Integer sex = member.getSex();
+        //判断条件值是否为空，如果不为空拼接条件
+        if(!StringUtils.isEmpty(mobile)) {
+            //构建条件
+            wrapper.like("mobile", mobile);
+        }
+        if(sex != null) {
+            wrapper.eq("sex",sex);
+        }
+
+        //排序
+        wrapper.orderByDesc("gmt_create");
+
+        //调用方法实现条件查询分页
+        memberService.page(memberPage,wrapper);
+        //总记录数
+        long total = memberPage.getTotal();
+
+        //数据list集合
+        //        List<Member> memberList = memberService.getMemberList(wrapper, current, limit);
+        List<Member> records = memberPage.getRecords();
+        return MyResult.ok().data("total",total).data("rows",records);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}")
+    public MyResult getMemberById(@PathVariable String id) {
+        Member byId = memberService.getById(id);
+        return MyResult.ok().data("member",byId);
+    }
+
+
+    /** 添加
+     *
+     * @param member
+     * @return
+     */
+    @PostMapping("addMember")
+    public MyResult addEntry(@RequestBody Member member){
+        boolean save = memberService.save(member);
+        if(save) {
+            return MyResult.ok();
+        } else {
+            return MyResult.error();
+        }
+    }
+
+
+    @ApiOperation(value = "逻辑删除")
+    @DeleteMapping("/deleteById/{id}")
+    public MyResult removeById(@ApiParam(name = "id", value = "ID", required = true)
+                               @PathVariable ArrayList<String> id) {
+        boolean flag = false;
+        for (int i = 0; i < id.size(); i++) {
+            flag = memberService.removeById(id.get(i));
+        }
+        if(flag) {
+            return MyResult.ok();
+        } else {
+            return MyResult.error();
+        }
+    }
+
+
+    @PostMapping("updateMember")
+    public MyResult updateEntry(@RequestBody Member member) {
+        boolean flag = memberService.updateById(member);
+        if(flag) {
+            return MyResult.ok();
+        } else {
+            return MyResult.error();
+        }
+    }
 }
 

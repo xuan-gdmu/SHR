@@ -1,8 +1,11 @@
 package com.lwx.ucenter.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.lwx.ucenter.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lwx.ucenter.entity.vo.RegisterVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,7 @@ public interface MemberService extends IService<Member> {
     String login(Member member);
 
     void register(RegisterVo registerVo);
+
+
+    List<Member> getMemberList(Wrapper<Member> queryWrapper, long current, long limit);
 }
