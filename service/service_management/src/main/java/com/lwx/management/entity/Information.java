@@ -1,11 +1,9 @@
 package com.lwx.management.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
@@ -113,5 +111,8 @@ public class Information implements Serializable {
 
     private String employeeId;
 
+    @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
+    @TableLogic
+    private Boolean isDeleted;
 
 }
