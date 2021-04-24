@@ -20,7 +20,8 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author testjava
+ * @author 陆文轩
+ * @email 1040152310@qq.com
  * @since 2021-03-30
  */
 @Data
@@ -31,11 +32,14 @@ public class Information implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** MP全局唯一ID策略，自动生成19位字符ID，用于唯一标识，无实际意义 */
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
+    /** 员工姓名 */
     private String name;
 
+    /** 员工电话号码 */
     private String phoneno;
 
     private String deptno;

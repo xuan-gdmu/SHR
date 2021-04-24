@@ -1,6 +1,9 @@
 package com.lwx.ucenter.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwx.common.MyResult;
 import com.lwx.ucenter.entity.Member;
 import com.lwx.ucenter.service.MemberService;
@@ -48,7 +51,6 @@ public class MemberController {
     public MyResult registerUser(@RequestBody com.lwx.ucenter.entity.vo.RegisterVo registerVo) {
         memberService.register(registerVo);
         return MyResult.ok();
-
     }
 
     /**根据token获取用户信息
@@ -64,9 +66,57 @@ public class MemberController {
         Member member = memberService.getById(memberId);
         return MyResult.ok().data("userInfo",member);
     }
+
+    /**
+     * 登出
+     * @return  成功
+     *
+     */
     @PostMapping("logout")
     public MyResult logout() {
         return MyResult.ok();
     }
+
+    /** 分页查询
+     *
+     * @param current
+     * @param limit
+     * @param member
+     * @return 分页查询List列表
+     *
+     */
+//    @PostMapping("pageUserCondition/{current}/{limit}")
+//    public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
+//                                  @RequestBody(required = false) Member member) {
+//        //创建page对象
+//        Page<Member> memberPage = new Page<>(current,limit);
+//
+//        //构建条件
+//        QueryWrapper<Member> wrapper = new QueryWrapper<>();
+//        // 多条件组合查询
+//        // mybatis学过 动态sql
+//        String name = member.getMobile();
+//        String  sex = member.getSex().toString();
+//        //判断条件值是否为空，如果不为空拼接条件
+//        if(!StringUtils.isEmpty(name)) {
+//            //构建条件
+//            wrapper.like("name",name);
+//        }
+//        if(!StringUtils.isEmpty(sex)) {
+//            wrapper.eq("sex",sex);
+//        }
+//
+//        //排序
+//        wrapper.orderByDesc("gmt_create");
+
+//        //调用方法实现条件查询分页
+//        memberService.page(memberPage,wrapper);
+//        //总记录数
+//        List<Member> informationPageList = memberService.li(wrapper, current, limit);
+//        long total = informationPage.getTotal();
+//        //数据list集合
+//        List<Information> records = informationPageList;
+//        return MyResult.ok().data("total",total).data("rows",records);
+//    }
 }
 

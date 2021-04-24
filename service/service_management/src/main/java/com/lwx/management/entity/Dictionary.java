@@ -18,35 +18,29 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author testjava
- * @since 2021-03-30
+ * @author lwx
+ * @since 2021-04-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Contract对象", description="")
-public class Contract implements Serializable {
+@ApiModel(value="Dictionary对象", description="")
+public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
-    private Long id;
+    private String id;
 
-    private String name;
+    private String dicCode;
 
-    private Long contid;
+    private String dicName;
 
-    private String conttype;
+    private String codeIndex;
 
-    private String constate;
+    private String indexNameCn;
 
-    private Date conttimelimit;
-
-    private Date contstart;
-
-    private Date contend;
-
-    private Integer contnum;
+    private String indexNameEn;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
@@ -55,5 +49,6 @@ public class Contract implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
+
 
 }

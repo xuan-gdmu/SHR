@@ -64,7 +64,7 @@ public class InformationVo implements Serializable {
 
     private String identity;
 
-    private String sex;
+    private Boolean sex;
 
     //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 //    @JSONField(format = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")

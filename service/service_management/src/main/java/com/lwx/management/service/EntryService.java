@@ -2,7 +2,8 @@ package com.lwx.management.service;
 
 import com.lwx.management.entity.Entry;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +16,5 @@ import org.springframework.stereotype.Service;
 
 public interface EntryService extends IService<Entry> {
 
+    List<Entry> getSelectEntryPage(long current, long limit);
 }

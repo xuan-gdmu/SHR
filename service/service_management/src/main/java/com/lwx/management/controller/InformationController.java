@@ -8,14 +8,14 @@ import com.lwx.management.entity.Information;
 import com.lwx.management.entity.vo.InformationQuery;
 import com.lwx.management.entity.vo.InformationVo;
 import com.lwx.management.service.InformationService;
-import com.lwx.servicebase.exceptionhandler.LWXException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +36,7 @@ public class InformationController {
     private InformationService informationService;
 
 
-    @ApiOperation(value = "列表")
+    @ApiOperation(value = "初代查询功能，查询所有员工")
     @GetMapping("findAll")
     public MyResult findAllInformation(){
         List<Information> list = informationService.list(null);
@@ -55,46 +55,10 @@ public class InformationController {
         }
     }
 
-    //3 分页查询讲师的方法
-    //current 当前页
-    //limit 每页记录数
-    @GetMapping("pageInformation/{current}/{limit}")
-    public MyResult pageListInformation(@PathVariable long current,
-                             @PathVariable long limit) {
-        //创建page对象
-        Page<Information> informationPage = new Page<>(current,limit);
-
-        try {
-            int i = 10/0;
-        }catch(Exception e) {
-            //执行自定义异常
-            throw new LWXException(20001,"执行了自定义异常处理....");
-        }
-
-
-        //调用方法实现分页
-        //调用方法时候，底层封装，把分页所有数据封装到pageTeacher对象里面
-        informationService.page(informationPage,null);
-        //总记录数
-        long total = informationPage.getTotal();
-        //数据list集合
-        List<Information> records = informationPage.getRecords();
-
-        /*Map map = new HashMap();
-        map.put("total",total);
-        map.put("rows",records);
-        return R.ok().data(map);*/
-
-        return MyResult.ok().data("total",total).data("rows",records);
-    }
-
-
+    @ApiOperation(value = "根据前端条件，分页查询返回数据")
     @PostMapping("pageInformationCondition/{current}/{limit}")
     public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
-                                  @RequestBody(required = false) InformationQuery informationQuery) {
-        //创建page对象
-        Page<Information> informationPage = new Page<>(current,limit);
-
+                                             @RequestBody(required = false) InformationQuery informationQuery) {
         //构建条件
         QueryWrapper<Information> wrapper = new QueryWrapper<>();
         // 多条件组合查询
@@ -117,19 +81,15 @@ public class InformationController {
         if(!StringUtils.isEmpty(end)) {
             wrapper.le("join_date",end);
         }
-
-        //排序
-        wrapper.orderByDesc("gmt_create");
-
-        //调用方法实现条件查询分页
-        informationService.page(informationPage,wrapper);
-        //总记录数
-        long total = informationPage.getTotal();
+        current = (current - 1) * 10;
+        List<Information> informationPageList = informationService.getInformationPageList(wrapper, current, limit);
+        int count = informationService.count(wrapper);
         //数据list集合
-        List<Information> records = informationPage.getRecords();
-        return MyResult.ok().data("total",total).data("rows",records);
+        List<Information> records = informationPageList;
+        return MyResult.ok().data("total",count).data("rows",records);
     }
 
+    @ApiOperation(value = "新增员工档案")
     @PostMapping("addInformation")
     public MyResult addInformation(@RequestBody InformationVo informationvo) {
         Information information = new Information();
@@ -155,14 +115,14 @@ public class InformationController {
         }
     }
 
-
+    @ApiOperation(value = "通过员工ID获取员工详细信息")
     @GetMapping("getInformationById/{id}")
     public MyResult getInformationById(@PathVariable String id) {
         Information information = informationService.getById(id);
         return MyResult.ok().data("information",information);
     }
 
-
+    @ApiOperation(value = "更新员工详细信息")
     @PostMapping("updateInformation")
     public MyResult updateInformation(@RequestBody InformationVo informationvo) {
         Information information = new Information();
