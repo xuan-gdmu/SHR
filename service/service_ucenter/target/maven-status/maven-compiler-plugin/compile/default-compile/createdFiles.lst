@@ -1,0 +1,8 @@
+com\lwx\ucenter\entity\Member.class
+com\lwx\ucenter\UcenterApplication.class
+com\lwx\ucenter\entity\vo\EntryVo.class
+com\lwx\ucenter\service\MemberService.class
+com\lwx\ucenter\controller\MemberController.class
+com\lwx\ucenter\entity\vo\RegisterVo.class
+com\lwx\ucenter\mapper\MemberMapper.class
+com\lwx\ucenter\service\impl\MemberServiceImpl.class

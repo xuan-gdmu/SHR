@@ -58,8 +58,8 @@ public class InformationController {
     @ApiOperation(value = "根据前端条件，分页查询返回数据")
     @PostMapping("pageInformationCondition/{current}/{limit}")
     public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
-                                             @RequestBody(required = false) InformationQuery informationQuery) {
         //构建条件
+                                             @RequestBody(required = false) InformationQuery informationQuery) {
         QueryWrapper<Information> wrapper = new QueryWrapper<>();
         // 多条件组合查询
         // mybatis学过 动态sql

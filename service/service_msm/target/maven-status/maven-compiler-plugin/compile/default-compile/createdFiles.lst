@@ -1,0 +1,5 @@
+com\lwx\msmservice\controller\MsmController.class
+com\lwx\msmservice\service\impl\MsmServiceImpl.class
+com\lwx\msmservice\MsmApplication.class
+com\lwx\msmservice\service\MsmService.class
+com\lwx\msmservice\utils\RandomUtil.class

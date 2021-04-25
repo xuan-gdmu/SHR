@@ -1,0 +1,6 @@
+com\lwx\vodservice\controller\VodController.class
+com\lwx\vodservice\VodApplication.class
+com\lwx\vodservice\service\VodService.class
+com\lwx\vodservice\utils\ConstantVodUtils.class
+com\lwx\vodservice\service\impl\VodServiceImpl.class
+com\lwx\vodservice\utils\InitVodCilent.class

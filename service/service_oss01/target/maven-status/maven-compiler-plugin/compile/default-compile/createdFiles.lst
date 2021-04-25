@@ -1,0 +1,5 @@
+com\lwx\oss\controller\OssController.class
+com\lwx\oss\utils\ConstantPropertiesUtils.class
+com\lwx\oss\service\OssService.class
+com\lwx\oss\OssApplication.class
+com\lwx\oss\service\impl\OssServiceImpl.class

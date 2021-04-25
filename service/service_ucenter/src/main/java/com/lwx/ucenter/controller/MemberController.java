@@ -4,8 +4,10 @@ package com.lwx.ucenter.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lwx.common.MD5;
 import com.lwx.common.MyResult;
 import com.lwx.ucenter.entity.Member;
+import com.lwx.ucenter.entity.vo.EntryVo;
 import com.lwx.ucenter.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -141,11 +143,14 @@ public class MemberController {
 
     /** 添加
      *
-     * @param member
+     * @param entryVo
      * @return
      */
     @PostMapping("addMember")
-    public MyResult addEntry(@RequestBody Member member){
+    public MyResult addMember(@RequestBody EntryVo entryVo){
+        Member member = new Member();
+        member.setMobile(entryVo.getPhonenum());
+        member.setPassword(MD5.encrypt("888888"));
         boolean save = memberService.save(member);
         if(save) {
             return MyResult.ok();

@@ -11,10 +11,16 @@ import com.lwx.management.entity.vo.InformationQuery;
 import com.lwx.management.service.DictionaryService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 /**
  * <p>
@@ -28,8 +34,14 @@ import java.util.List;
 @RequestMapping("/management/dictionary")
 @CrossOrigin
 public class DictionaryController {
+    @Resource
+    private RedisTemplate redisTemplate;
+
     @Autowired
     private DictionaryService dictionaryService;
+
+    @Resource
+    private RedisTemplate<String, Dictionary> redisTemplateSecond;
 
     @GetMapping("getEmployeeType")
     public MyResult getEmployeeType() {
@@ -132,5 +144,38 @@ public class DictionaryController {
     }
 
 
+
+//    @GetMapping("/set")
+//    public String set() {
+//        // redisTemplate 保存的是字节序列，因为 RestTemplateConfig 自定义的时候指定了 key 和 value 的序列化器。
+//        RedisTemplate.opsForValue().set("two", "2");
+//        redisTemplate.opsForValue().set("person", new Person(1L, "luffy", "123456789"));
+//
+//        // 测试线程安全
+//        ExecutorService executorService = Executors.newFixedThreadPool(1000);
+//        IntStream.range(0, 1000).forEach(i -> {
+//            executorService.execute(() -> stringRedisTemplate.opsForValue().increment("num", 1));
+//        });
+//        return "Ok!";
+//    }
+//
+//    @GetMapping("/get")
+//    public String get() {
+//        redisTemplate.opsForList().range()
+//        if ("1".equals(one)) {
+//            System.out.println("key: one" + " || value: " + one);
+//        }
+//
+//        Object two = redisTemplate.opsForValue().get("two");
+//        if ("2".equals(two.toString())) {
+//            System.out.println("key: two" + " || value: " + two);
+//        }
+//
+//        Person user = (Person) redisTemplate.opsForValue().get("person");
+//        if ("luffy".equals(user.getUsername())) {
+//            System.out.println("key: person" + " || value: " + user);
+//        }
+//        return "Ok!";
+//    }
 }
 
