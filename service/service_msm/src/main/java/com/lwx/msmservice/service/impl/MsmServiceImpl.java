@@ -43,7 +43,7 @@ public class MsmServiceImpl implements MsmService {
         //设置发送相关的参数//手机号
         request.putQueryParameter("PhoneNumbers",phone);
         //申请阿里云 签名名称
-        request.putQueryParameter("SignName","我的谷粒在线教育网站");
+        request.putQueryParameter("SignName","人力资源管理系统");
         //申请阿里云 模板code
         request.putQueryParameter("TemplateCode","SMS_180051135");
         //验证码数据，转换json数据传递

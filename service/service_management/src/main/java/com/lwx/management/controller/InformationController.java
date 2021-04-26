@@ -58,7 +58,6 @@ public class InformationController {
     @ApiOperation(value = "根据前端条件，分页查询返回数据")
     @PostMapping("pageInformationCondition/{current}/{limit}")
     public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
-        //构建条件
                                              @RequestBody(required = false) InformationQuery informationQuery) {
         QueryWrapper<Information> wrapper = new QueryWrapper<>();
         // 多条件组合查询
@@ -146,8 +145,19 @@ public class InformationController {
             e.printStackTrace();
         }
         return MyResult.error();
+    }
 
-
+    @ApiOperation(value = "更新员工详细信息")
+    @PostMapping("informationDimission/{id}")
+    public MyResult informationDimission(@PathVariable String id) {
+        Information information = informationService.getById(id);
+        if (information.getStaffStatus() != "离职"){
+            information.setStaffStatus("离职");
+            informationService.updateById(information);
+            return MyResult.ok();
+        }else{
+            return MyResult.error();
+        }
     }
 }
 

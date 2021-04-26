@@ -99,33 +99,33 @@ public class EntryController {
     }
 
     @PostMapping("pageEntryCondition/{current}/{limit}")
-    //@RequestBody(required = false) InformationQuery informationQuery
-    public MyResult pageEntryCondition(@PathVariable long current,@PathVariable long limit) {
+    public MyResult pageEntryCondition(@PathVariable long current,@PathVariable long limit,
+                                        @RequestBody(required = false) Entry entry) {
         //创建page对象
         Page<Entry> entryPage = new Page<>(current,limit);
-
         //构建条件
         QueryWrapper<Entry> wrapper = new QueryWrapper<>();
-//        // 多条件组合查询
-//        // mybatis学过 动态sql
-//        String name = informationQuery.getName();
-//        String level = informationQuery.getStaffType();
-//        String begin = informationQuery.getBegin();
-//        String end = informationQuery.getEnd();
-//        //判断条件值是否为空，如果不为空拼接条件
-//        if(!StringUtils.isEmpty(name)) {
-//            //构建条件
-//            wrapper.like("name",name);
-//        }
-//        if(!StringUtils.isEmpty(level)) {
-//            wrapper.eq("staff_type",level);
-//        }
-//        if(!StringUtils.isEmpty(begin)) {
-//            wrapper.ge("join_date",begin);
-//        }
-//        if(!StringUtils.isEmpty(end)) {
-//            wrapper.le("join_date",end);
-//        }
+        // 多条件组合查询
+        // mybatis学过 动态sql
+        String name = entry.getName();
+        String employeeId = entry.getEmployeeId();
+        String entrydept = entry.getEntrydept();
+        String entrypost = entry.getEntrypost();
+
+        //判断条件值是否为空，如果不为空拼接条件
+        if(!StringUtils.isEmpty(name)) {
+            //构建条件
+            wrapper.like("name",name);
+        } if(!StringUtils.isEmpty(employeeId)) {
+            //构建条件
+            wrapper.like("employee_id",employeeId);
+        } if(!StringUtils.isEmpty(entrydept)) {
+            //构建条件
+            wrapper.eq("entrydept",entrydept);
+        } if(!StringUtils.isEmpty(entrypost)) {
+            //构建条件
+            wrapper.eq("entrypost",entrypost);
+        }
 
         //排序
         wrapper.orderByDesc("gmt_create");
@@ -134,18 +134,19 @@ public class EntryController {
 //        entryService.page(entryPage, wrapper);
 //        //总记录数
 //        long total = entryPage.getTotal();
-//        //数据list集合
 //        List<Entry> records = entryPage.getRecords();
         current = (current - 1) * 10;
         List<Entry> entryList = entryService.getSelectEntryPage(current, limit);
 //        informationService.page(informationPage,wrapper);
 //        long total = informationPageList.size();
-        long total = entryService.count();
+//        long total = entryService.count();
         int count = entryService.count(wrapper);
         //数据list集合
         List<Entry> records = entryList;
         return MyResult.ok().data("total",count).data("rows",records);
 //        return MyResult.ok().data("total",total).data("rows",records);
     }
+
+
 }
 
