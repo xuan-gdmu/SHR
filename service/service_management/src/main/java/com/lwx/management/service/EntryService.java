@@ -1,5 +1,6 @@
 package com.lwx.management.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwx.management.entity.Entry;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,5 +17,6 @@ import java.util.List;
 
 public interface EntryService extends IService<Entry> {
 
-    List<Entry> getSelectEntryPage(long current, long limit);
+
+    List<Entry> getSelectEntryPage(QueryWrapper<Entry> wrapper, long current, long limit);
 }

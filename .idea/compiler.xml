@@ -13,6 +13,7 @@
         <module name="service_oss01" />
         <module name="service_ucenter" />
         <module name="service_vod01" />
+        <module name="service_course" />
         <module name="service_management" />
       </profile>
     </annotationProcessing>
@@ -34,6 +35,7 @@
       <module name="management" options="-parameters" />
       <module name="service" options="" />
       <module name="service_base" options="-parameters" />
+      <module name="service_course" options="-parameters" />
       <module name="service_management" options="-parameters" />
       <module name="service_msm" options="-parameters" />
       <module name="service_oss" options="-parameters" />

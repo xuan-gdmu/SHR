@@ -34,14 +34,9 @@ import java.util.stream.IntStream;
 @RequestMapping("/management/dictionary")
 @CrossOrigin
 public class DictionaryController {
-    @Resource
-    private RedisTemplate redisTemplate;
 
     @Autowired
     private DictionaryService dictionaryService;
-
-    @Resource
-    private RedisTemplate<String, Dictionary> redisTemplateSecond;
 
     @GetMapping("getEmployeeType")
     public MyResult getEmployeeType() {

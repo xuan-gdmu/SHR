@@ -2,3 +2,4 @@ com\lwx\servicebase\exceptionhandler\LWXException.class
 com\lwx\servicebase\SwaggerConfig.class
 com\lwx\servicebase\exceptionhandler\GlobalExceptionHandler.class
 com\lwx\servicebase\handler\MyMetaObjectHandler.class
+com\lwx\servicebase\RedisConfig.class

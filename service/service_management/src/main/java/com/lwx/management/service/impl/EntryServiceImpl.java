@@ -1,5 +1,6 @@
 package com.lwx.management.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwx.management.entity.Entry;
 import com.lwx.management.mapper.EntryMapper;
 import com.lwx.management.service.EntryService;
@@ -21,8 +22,8 @@ public class EntryServiceImpl extends ServiceImpl<EntryMapper, Entry> implements
 
 
     @Override
-    public List<Entry> getSelectEntryPage(long current, long limit) {
-        List<Entry> entryList = baseMapper.getSelectEntry(current, limit);
+    public List<Entry> getSelectEntryPage(QueryWrapper<Entry> wrapper, long current, long limit) {
+        List<Entry> entryList = baseMapper.getSelectEntry(wrapper, current, limit);
         return entryList;
     }
 }

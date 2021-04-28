@@ -27,6 +27,21 @@ public class Dictionary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private Dictionary(){}
+
+    private static Dictionary dictionary = null;
+
+    public static Dictionary getInstance(){
+        if(dictionary == null){
+            synchronized (Dictionary.class){
+                if(dictionary == null){
+                    dictionary = new Dictionary();
+                }
+            }
+        }
+        return dictionary;
+    }
+
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 

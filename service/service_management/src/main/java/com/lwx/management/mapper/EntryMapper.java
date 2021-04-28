@@ -18,6 +18,6 @@ import java.util.List;
  * @since 2021-03-30
  */
 public interface EntryMapper extends BaseMapper<Entry> {
-    List<Entry> getSelectEntry( @Param("current") long current, @Param("limit") long limit);
+    List<Entry> getSelectEntry(@Param(Constants.WRAPPER) QueryWrapper wrapper, @Param("current") long current, @Param("limit") long limit);
 
 }

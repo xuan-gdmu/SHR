@@ -17,7 +17,7 @@
                 t.`operator`            as   operator
         FROM   `entry` t        LEFT JOIN `dept` d     on t.`entrydept` = d.`id`
                                 LEFT JOIN `post` p     on t.`entrypost` = p.`id`
-
+        ${ew.customSqlSegment}
         LIMIT #{current},#{limit}
     </select>
 </mapper>

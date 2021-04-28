@@ -126,9 +126,9 @@ public class EntryController {
             //构建条件
             wrapper.eq("entrypost",entrypost);
         }
-
+//        wrapper.eq("is_delete", 0);
         //排序
-        wrapper.orderByDesc("gmt_create");
+//        wrapper.orderByDesc("gmt_create");
 
 //        //调用方法实现条件查询分页
 //        entryService.page(entryPage, wrapper);
@@ -136,7 +136,7 @@ public class EntryController {
 //        long total = entryPage.getTotal();
 //        List<Entry> records = entryPage.getRecords();
         current = (current - 1) * 10;
-        List<Entry> entryList = entryService.getSelectEntryPage(current, limit);
+        List<Entry> entryList = entryService.getSelectEntryPage(wrapper, current, limit);
 //        informationService.page(informationPage,wrapper);
 //        long total = informationPageList.size();
 //        long total = entryService.count();

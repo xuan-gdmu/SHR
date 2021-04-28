@@ -151,11 +151,13 @@ public class InformationController {
     @PostMapping("informationDimission/{id}")
     public MyResult informationDimission(@PathVariable String id) {
         Information information = informationService.getById(id);
-        if (information.getStaffStatus() != "离职"){
+        if (!information.getStaffStatus().equals("离职")){
             information.setStaffStatus("离职");
             informationService.updateById(information);
             return MyResult.ok();
-        }else{
+        }else if(information.getStaffStatus() == "离职"){
+            return MyResult.error();
+        }else {
             return MyResult.error();
         }
     }
