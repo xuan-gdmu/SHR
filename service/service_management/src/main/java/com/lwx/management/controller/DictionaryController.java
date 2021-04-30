@@ -7,10 +7,12 @@ import com.lwx.common.MyResult;
 import com.lwx.management.entity.Dictionary;
 
 import com.lwx.management.entity.vo.DictionaryQuery;
+import com.lwx.management.entity.vo.DictionaryVo;
 import com.lwx.management.entity.vo.InformationQuery;
 import com.lwx.management.service.DictionaryService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
@@ -24,7 +26,7 @@ import java.util.stream.IntStream;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author lwx
@@ -34,68 +36,78 @@ import java.util.stream.IntStream;
 @RequestMapping("/management/dictionary")
 @CrossOrigin
 public class DictionaryController {
+    private DictionaryVo dictionaryVo = DictionaryVo.getInstance();
 
     @Autowired
     private DictionaryService dictionaryService;
 
-    @GetMapping("getEmployeeType")
-    public MyResult getEmployeeType() {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name","员工类型");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return MyResult.ok().data("dic",dictionaryList);
-    }
-    @GetMapping("getEmployeeStatus")
-    public MyResult getInformationById() {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name","员工状态");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return MyResult.ok().data("dic",dictionaryList);
-    }
-    @GetMapping("getProbation")
-    public MyResult getProbation() {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name","试用期");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return MyResult.ok().data("dic",dictionaryList);
-    }
-    @GetMapping("getDocumentType")
-    public MyResult getDocumentType() {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name","证件类型");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return MyResult.ok().data("dic",dictionaryList);
-    }
-    @GetMapping("getBank")
-    public MyResult getBank() {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name","开户银行");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return MyResult.ok().data("dic",dictionaryList);
-    }
-    @GetMapping("getPoliticalStatus")
-    public MyResult getPoliticalStatus() {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name","政治面貌");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return MyResult.ok().data("dic",dictionaryList);
+//    @GetMapping("getEmployeeType")
+//    public MyResult getEmployeeType() {
+//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+//        dictionaryQueryWrapper.eq("dic_name","员工类型");
+//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
+//        return MyResult.ok().data("dic",dictionaryList);
+//    }
+//    @GetMapping("getEmployeeStatus")
+//    public MyResult getInformationById() {
+//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+//        dictionaryQueryWrapper.eq("dic_name","员工状态");
+//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
+//        return MyResult.ok().data("dic",dictionaryList);
+//    }
+//    @GetMapping("getProbation")
+//    public MyResult getProbation() {
+//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+//        dictionaryQueryWrapper.eq("dic_name","试用期");
+//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
+//        return MyResult.ok().data("dic",dictionaryList);
+//    }
+//    @GetMapping("getDocumentType")
+//    public MyResult getDocumentType() {
+//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+//        dictionaryQueryWrapper.eq("dic_name","证件类型");
+//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
+//        return MyResult.ok().data("dic",dictionaryList);
+//    }
+//    @GetMapping("getBank")
+//    public MyResult getBank() {
+//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+//        dictionaryQueryWrapper.eq("dic_name","开户银行");
+//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
+//        return MyResult.ok().data("dic",dictionaryList);
+//    }
+//    @GetMapping("getPoliticalStatus")
+//    public MyResult getPoliticalStatus() {
+//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
+//        dictionaryQueryWrapper.eq("dic_name","政治面貌");
+//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
+//        return MyResult.ok().data("dic",dictionaryList);
+//    }
+
+    @GetMapping("getSelections")
+    public MyResult getSelections() {
+        return MyResult.ok().data("staffType", dictionaryVo.getStaffType(dictionaryService))
+                .data("staffStatus", dictionaryVo.getStaffStatus(dictionaryService))
+                .data("bank", dictionaryVo.getBank(dictionaryService))
+                .data("documentType", dictionaryVo.getDocumentType(dictionaryService))
+                .data("politicalStatus", dictionaryVo.getPoliticalStatus(dictionaryService))
+                .data("probation", dictionaryVo.getProbation(dictionaryService));
     }
 
     @PostMapping("addDictionary")
     public MyResult addDictionary(@RequestBody Dictionary dictionary) {
         boolean save = dictionaryService.save(dictionary);
-        if(save){
+        if (save) {
             return MyResult.ok();
-        }else {
+        } else {
             return MyResult.error();
         }
     }
 
     @PostMapping("pageDictionary/{current}/{limit}")
-    public MyResult pageDictionary(@PathVariable long current,@PathVariable long limit,
-                                   @RequestBody(required = false) DictionaryQuery dictionaryQuery) {
+    public MyResult pageDictionary(@PathVariable long current, @PathVariable long limit, @RequestBody(required = false) DictionaryQuery dictionaryQuery) {
         //创建page对象
-        Page<Dictionary> dictionaryPage = new Page<>(current,limit);
+        Page<Dictionary> dictionaryPage = new Page<>(current, limit);
 
         //构建条件
         QueryWrapper<Dictionary> wrapper = new QueryWrapper<>();
@@ -105,12 +117,12 @@ public class DictionaryController {
         String indexNameCn = dictionaryQuery.getIndexNameCn();
 
         //判断条件值是否为空，如果不为空拼接条件
-        if(!StringUtils.isEmpty(dicName)) {
+        if (!StringUtils.isEmpty(dicName)) {
             //构建条件
-            wrapper.like("dic_name",dicName);
+            wrapper.like("dic_name", dicName);
         }
-        if(!StringUtils.isEmpty(indexNameCn)) {
-            wrapper.like("index_name_cn",indexNameCn);
+        if (!StringUtils.isEmpty(indexNameCn)) {
+            wrapper.like("index_name_cn", indexNameCn);
         }
 
         //排序
@@ -119,25 +131,23 @@ public class DictionaryController {
 //        wrapper.orderByDesc("gmt_create");
 
         //调用方法实现条件查询分页
-        dictionaryService.page(dictionaryPage,wrapper);
+        dictionaryService.page(dictionaryPage, wrapper);
         //总记录数
         long total = dictionaryPage.getTotal();
         //数据list集合
         List<Dictionary> records = dictionaryPage.getRecords();
-        return MyResult.ok().data("total",total).data("rows",records);
+        return MyResult.ok().data("total", total).data("rows", records);
     }
 
     @DeleteMapping("{id}")
-    public MyResult deleteById(@ApiParam(name = "id", value = "ID", required = true)
-                               @PathVariable String id){
+    public MyResult deleteById(@ApiParam(name = "id", value = "ID", required = true) @PathVariable String id) {
         boolean flag = dictionaryService.removeById(id);
-        if(flag) {
+        if (flag) {
             return MyResult.ok();
         } else {
             return MyResult.error();
         }
     }
-
 
 
 //    @GetMapping("/set")

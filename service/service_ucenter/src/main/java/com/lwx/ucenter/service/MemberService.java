@@ -1,6 +1,7 @@
 package com.lwx.ucenter.service;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lwx.ucenter.entity.Member;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lwx.ucenter.entity.vo.RegisterVo;
@@ -22,5 +23,7 @@ public interface MemberService extends IService<Member> {
     void register(RegisterVo registerVo);
 
 
-    List<Member> getMemberList(Wrapper<Member> queryWrapper, long current, long limit);
+    List<Member> getMemberList(QueryWrapper<Member> queryWrapper, long current, long limit);
+
+    boolean deleteByMobile(String mobile);
 }

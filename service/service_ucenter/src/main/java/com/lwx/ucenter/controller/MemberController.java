@@ -2,6 +2,7 @@ package com.lwx.ucenter.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwx.common.MD5;
@@ -36,7 +37,8 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    /**登陆
+    /**
+     * 登陆
      *
      * @param member
      * @return
@@ -48,10 +50,11 @@ public class MemberController {
         //返回token值，使用jwt生成
         String token = memberService.login(member);
 
-        return MyResult.ok().data("token",token);
+        return MyResult.ok().data("token", token);
     }
 
-    /**注册
+    /**
+     * 注册
      *
      * @param registerVo
      * @return
@@ -62,7 +65,8 @@ public class MemberController {
         return MyResult.ok();
     }
 
-    /**根据token获取用户信息
+    /**
+     * 根据token获取用户信息
      *
      * @param request
      * @return
@@ -73,86 +77,81 @@ public class MemberController {
         String memberId = com.lwx.common.JwtUtils.getMemberIdByJwtToken(request);
         //查询数据库根据用户id获取用户信息
         Member member = memberService.getById(memberId);
-        return MyResult.ok().data("userInfo",member);
+        return MyResult.ok().data("userInfo", member);
     }
 
     /**
      * 登出
-     * @return  成功
      *
+     * @return 成功
      */
     @PostMapping("logout")
     public MyResult logout() {
         return MyResult.ok();
     }
 
-    /** 分页查询
+    /**
+     * 分页查询
      *
      * @param current
      * @param limit
      * @param member
      * @return 分页查询List列表
-     *
      */
     @PostMapping("pageUserCondition/{current}/{limit}")
-    public MyResult pageInformationCondition(@PathVariable long current,@PathVariable long limit,
-                                  @RequestBody(required = false) Member member) {
+    public MyResult pageUserCondition(@PathVariable long current, @PathVariable long limit,
+                                      @RequestBody(required = false) Member member) {
         //创建page对象
-        Page<Member> memberPage = new Page<>(current,limit);
+        Page<Member> memberPage = new Page<>(current, limit);
 
         //构建条件
         QueryWrapper<Member> wrapper = new QueryWrapper<>();
         // 多条件组合查询
         // mybatis学过 动态sql
         String mobile = member.getMobile();
-        Integer sex = member.getSex();
         //判断条件值是否为空，如果不为空拼接条件
-        if(!StringUtils.isEmpty(mobile)) {
+        if (!StringUtils.isEmpty(mobile)) {
             //构建条件
             wrapper.like("mobile", mobile);
         }
-        if(sex != null) {
-            wrapper.eq("sex",sex);
-        }
-
+        wrapper.eq("is_deleted", 0);
         //排序
         wrapper.orderByDesc("gmt_create");
 
-        //调用方法实现条件查询分页
-        memberService.page(memberPage,wrapper);
+        current = (current - 1) * 10;
         //总记录数
-        long total = memberPage.getTotal();
+        long total = memberService.count(wrapper);
 
         //数据list集合
-        //        List<Member> memberList = memberService.getMemberList(wrapper, current, limit);
-        List<Member> records = memberPage.getRecords();
-        return MyResult.ok().data("total",total).data("rows",records);
+        List<Member> records = memberService.getMemberList(wrapper, current, limit);
+//        List<Member> records = memberPage.getRecords();
+        return MyResult.ok().data("total", total).data("rows", records);
     }
 
     /**
-     *
      * @param id
      * @return
      */
     @GetMapping("{id}")
     public MyResult getMemberById(@PathVariable String id) {
         Member byId = memberService.getById(id);
-        return MyResult.ok().data("member",byId);
+        return MyResult.ok().data("member", byId);
     }
 
 
-    /** 添加
+    /**
+     * 添加
      *
      * @param entryVo
      * @return
      */
     @PostMapping("addMember")
-    public MyResult addMember(@RequestBody EntryVo entryVo){
+    public MyResult addMember(@RequestBody EntryVo entryVo) {
         Member member = new Member();
         member.setMobile(entryVo.getPhonenum());
         member.setPassword(MD5.encrypt("888888"));
         boolean save = memberService.save(member);
-        if(save) {
+        if (save) {
             return MyResult.ok();
         } else {
             return MyResult.error();
@@ -168,18 +167,28 @@ public class MemberController {
         for (int i = 0; i < id.size(); i++) {
             flag = memberService.removeById(id.get(i));
         }
-        if(flag) {
+        if (flag) {
             return MyResult.ok();
         } else {
             return MyResult.error();
         }
     }
 
+    @DeleteMapping("/deleteByMobile/{mobile}")
+    public MyResult deleteByMobile(@PathVariable String mobile) {
+        boolean flag = false;
+        flag = memberService.deleteByMobile(mobile);
+        if (flag) {
+            return MyResult.ok();
+        } else {
+            return MyResult.ok();
+        }
+    }
 
     @PostMapping("updateMember")
     public MyResult updateEntry(@RequestBody Member member) {
         boolean flag = memberService.updateById(member);
-        if(flag) {
+        if (flag) {
             return MyResult.ok();
         } else {
             return MyResult.error();

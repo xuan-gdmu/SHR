@@ -29,11 +29,11 @@ import java.util.List;
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements MemberService {
 
 
-
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
-    /**登陆的方法
+    /**
+     * 登陆的方法
      *
      * @param member
      * @return
@@ -46,31 +46,31 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         String password = member.getPassword();
 
         //手机号和密码非空判断
-        if(StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)) {
-            throw new LWXException(20001,"登录失败");
+        if (StringUtils.isEmpty(mobile) || StringUtils.isEmpty(password)) {
+            throw new LWXException(20001, "登录失败");
         }
 
         //判断手机号是否正确
         QueryWrapper<Member> wrapper = new QueryWrapper<>();
-        wrapper.eq("mobile",mobile);
+        wrapper.eq("mobile", mobile);
         Member mobileMember = baseMapper.selectOne(wrapper);
         //判断查询对象是否为空
         //没有这个手机号
-        if(mobileMember == null) {
-            throw new LWXException(20001,"登录失败");
+        if (mobileMember == null) {
+            throw new LWXException(20001, "登录失败");
         }
 
         //判断密码
         //因为存储到数据库密码肯定加密的
         //把输入的密码进行加密，再和数据库密码进行比较
         //加密方式 MD5
-        if(!MD5.encrypt(password).equals(mobileMember.getPassword())) {
-            throw new LWXException(20001,"登录失败");
+        if (!MD5.encrypt(password).equals(mobileMember.getPassword())) {
+            throw new LWXException(20001, "登录失败");
         }
 
         //判断用户是否禁用
-        if(mobileMember.getIsDisabled()) {
-            throw new LWXException(20001,"登录失败");
+        if (mobileMember.getIsDisabled()) {
+            throw new LWXException(20001, "登录失败");
         }
 
         //登录成功
@@ -80,14 +80,14 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     }
 
     /**
-     * @author lwx
      * @param registerVo
+     * @author lwx
      * @date 2021-4-7
      */
     @Override
     public void register(RegisterVo registerVo) {
-//获取注册的数据
-//        String code = registerVo.getCode(); //验证码
+        // 获取注册的数据
+        //        String code = registerVo.getCode(); //验证码
         //手机号
         String mobile = registerVo.getMobile();
         //昵称
@@ -104,8 +104,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 //        }
 
         /**判断验证码
-           获取redis验证码
-        */
+         获取redis验证码
+         */
 //        String redisCode = redisTemplate.opsForValue().get(mobile);
 //        if(!code.equals(redisCode)) {
 //            throw new GuliException(20001,"注册失败");
@@ -113,10 +113,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
         //判断手机号是否重复，表里面存在相同手机号不进行添加
         QueryWrapper<Member> wrapper = new QueryWrapper<>();
-        wrapper.eq("mobile",mobile);
+        wrapper.eq("mobile", mobile);
         Integer count = baseMapper.selectCount(wrapper);
-        if(count > 0) {
-            throw new LWXException(20001,"注册失败");
+        if (count > 0) {
+            throw new LWXException(20001, "注册失败");
 
         }
 
@@ -133,7 +133,14 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     }
 
     @Override
-    public List<Member> getMemberList(Wrapper<Member> queryWrapper, long current, long limit) {
-        return null;
+    public List<Member> getMemberList(QueryWrapper<Member> queryWrapper, long current, long limit) {
+        List<Member> memberList = baseMapper.getMemberList(queryWrapper, current, limit);
+        return memberList;
+    }
+
+    @Override
+    public boolean deleteByMobile(String mobile) {
+        boolean flag = baseMapper.deleteByMobile(mobile);
+        return flag;
     }
 }
