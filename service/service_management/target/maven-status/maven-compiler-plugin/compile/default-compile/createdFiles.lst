@@ -9,6 +9,7 @@ com\lwx\management\service\impl\EntryServiceImpl.class
 com\lwx\management\controller\EducationBackgroundController.class
 com\lwx\management\mapper\InformationMapper.class
 com\lwx\management\controller\ExperienceController.class
+com\lwx\management\entity\vo\DictionaryVo.class
 com\lwx\management\entity\vo\InformationQuery.class
 com\lwx\management\entity\EducationBackground.class
 com\lwx\management\entity\vo\DictionaryQuery.class

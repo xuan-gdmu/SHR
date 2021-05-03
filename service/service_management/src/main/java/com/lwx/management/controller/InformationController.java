@@ -103,8 +103,9 @@ public class InformationController {
                 BeanUtils.copyProperties(informationvo,information);
             }
             boolean save = informationService.save(information);
+            String id = information.getId();
             if(save) {
-                return MyResult.ok();
+                return MyResult.ok().data("id", id);
             } else {
                 return MyResult.error();
             }

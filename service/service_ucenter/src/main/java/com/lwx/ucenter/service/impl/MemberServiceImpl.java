@@ -57,7 +57,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         //判断查询对象是否为空
         //没有这个手机号
         if (mobileMember == null) {
-            throw new LWXException(20001, "登录失败");
+            throw new LWXException(20001, "登录失败,查无此号");
         }
 
         //判断密码
@@ -65,12 +65,12 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         //把输入的密码进行加密，再和数据库密码进行比较
         //加密方式 MD5
         if (!MD5.encrypt(password).equals(mobileMember.getPassword())) {
-            throw new LWXException(20001, "登录失败");
+            throw new LWXException(20001, "登录失败，密码错误");
         }
 
         //判断用户是否禁用
         if (mobileMember.getIsDisabled()) {
-            throw new LWXException(20001, "登录失败");
+            throw new LWXException(20001, "登录失败，账号已被禁用");
         }
 
         //登录成功
@@ -89,7 +89,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         // 获取注册的数据
         //        String code = registerVo.getCode(); //验证码
         //手机号
-        String mobile = registerVo.getMobile();
+        String mobile = registerVo.getPhoneno();
         //昵称
         String nickname = registerVo.getNickname();
         //密码

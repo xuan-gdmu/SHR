@@ -26,11 +26,9 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
 
     @Override
     public void invoke(DeptData deptData, AnalysisContext analysisContext) {
-
         if(deptData == null) {
             throw new LWXException(20010,"文件数据为空");
         }
-
         //一行一行读取，每次读取有两个值，第一个值一级分类，第二个值二级分类
         //判断一级分类是否重复
         Dept existDept = this.existDept(deptService, deptData.getDeptName());
@@ -42,10 +40,8 @@ public class DeptExcelListener extends AnalysisEventListener<DeptData> {
             existDept.setDmanager(deptData.getDeptManager());
             deptService.save(existDept);
         }
-
         //获取一级分类id值
         String pid = existDept.getId();
-
         //添加二级分类
         //判断二级分类是否重复
         Post existTwoSubject = this.existPost(postService, deptData.getPostName(), pid);

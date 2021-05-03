@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwx.common.MD5;
 import com.lwx.common.MyResult;
+import com.lwx.ucenter.entity.Information;
 import com.lwx.ucenter.entity.Member;
 import com.lwx.ucenter.entity.vo.EntryVo;
 import com.lwx.ucenter.service.MemberService;
@@ -112,7 +113,7 @@ public class MemberController {
         //判断条件值是否为空，如果不为空拼接条件
         if (!StringUtils.isEmpty(mobile)) {
             //构建条件
-            wrapper.like("mobile", mobile);
+            wrapper.like("phoneno", mobile);
         }
         wrapper.eq("is_deleted", 0);
         //排序
@@ -149,7 +150,27 @@ public class MemberController {
     public MyResult addMember(@RequestBody EntryVo entryVo) {
         Member member = new Member();
         member.setMobile(entryVo.getPhonenum());
-        member.setPassword(MD5.encrypt("888888"));
+        member.setPassword(MD5.encrypt("666666"));
+        boolean save = memberService.save(member);
+        if (save) {
+            return MyResult.ok();
+        } else {
+            return MyResult.error();
+        }
+    }
+
+    /**
+     * 添加
+     *
+     * @param information
+     * @return
+     */
+    @PostMapping("addMemberByInformation")
+    public MyResult addMemberByInformation(@RequestBody Information information) {
+        Member member = new Member();
+        member.setMobile(information.getPhoneno());
+        member.setPassword(MD5.encrypt("666666"));
+        member.setAvatar(information.getAvatar());
         boolean save = memberService.save(member);
         if (save) {
             return MyResult.ok();
@@ -185,8 +206,43 @@ public class MemberController {
         }
     }
 
-    @PostMapping("updateMember")
-    public MyResult updateEntry(@RequestBody Member member) {
+    @PostMapping("resetMember/{id}")
+    public MyResult resetMember(@PathVariable String id) {
+        Member member = new Member();
+        member.setId(id);
+        member.setPassword(MD5.encrypt("666666"));
+        member.setAvatar(memberService.getById(id).getAvatar());
+        member.setIsDisabled(memberService.getById(id).getIsDisabled());
+        boolean flag = memberService.updateById(member);
+        if (flag) {
+            return MyResult.ok();
+        } else {
+            return MyResult.error();
+        }
+    }
+
+    @PostMapping("forbidMember/{id}")
+    public MyResult forbidMember(@PathVariable String id) {
+        Member member = new Member();
+        member.setId(id);
+        member.setPassword(memberService.getById(id).getPassword());
+        member.setAvatar(memberService.getById(id).getAvatar());
+        member.setIsDisabled(true);
+        boolean flag = memberService.updateById(member);
+        if (flag) {
+            return MyResult.ok();
+        } else {
+            return MyResult.error();
+        }
+    }
+
+    @PostMapping("recoverMember/{id}")
+    public MyResult recoverMember(@PathVariable String id) {
+        Member member = new Member();
+        member.setId(id);
+        member.setPassword(memberService.getById(id).getPassword());
+        member.setAvatar(memberService.getById(id).getAvatar());
+        member.setIsDisabled(false);
         boolean flag = memberService.updateById(member);
         if (flag) {
             return MyResult.ok();

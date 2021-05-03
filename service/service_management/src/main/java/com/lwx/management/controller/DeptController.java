@@ -43,10 +43,8 @@ public class DeptController {
     @PostMapping("addDept")
     public MyResult addDept(MultipartFile file) {
         //上传过来excel文件
-
         deptService.saveDept(file,deptService, postService);
         return MyResult.ok();
-
     }
 
     @GetMapping("getDept")

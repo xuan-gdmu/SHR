@@ -20,6 +20,7 @@ E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\mapper
 E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\entity\Experience.java
 E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\service\impl\PostServiceImpl.java
 E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\controller\ExperienceController.java
+E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\entity\vo\DictionaryVo.java
 E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\controller\EducationBackgroundController.java
 E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\mapper\EntryMapper.java
 E:\毕设\SHR\service\service_management\src\main\java\com\lwx\management\entity\vo\DeptVo.java
