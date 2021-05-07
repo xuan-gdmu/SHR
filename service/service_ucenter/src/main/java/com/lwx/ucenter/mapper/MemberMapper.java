@@ -20,4 +20,6 @@ public interface MemberMapper extends BaseMapper<Member> {
     List<Member> getMemberList(@Param(Constants.WRAPPER) QueryWrapper<Member> queryWrapper, @Param("current") long current, @Param("limit") long limit);
 
     Boolean deleteByMobile(@Param("mobile") String mobile);
+
+
 }

@@ -40,9 +40,15 @@ public class InformationServiceImpl extends ServiceImpl<InformationMapper, Infor
         return informationList;
     }
 
+    @Override
+    public Integer countRegisterDay(String day) {
+        return baseMapper.countRegisterDay(day);
+    }
+
 //    @Override
 //    public List<Information> getInformationPageList(long current, long limit, String name, String level) {
 //        List<Information> informationList = baseMapper.getInformationList(current, limit, name, level);
 //        return informationList;
 //    }
+
 }

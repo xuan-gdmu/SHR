@@ -33,7 +33,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/management/entry")
-@CrossOrigin
 public class EntryController {
     @Autowired
     private EntryService entryService;

@@ -11,6 +11,7 @@ import com.lwx.management.service.InformationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/management/information")
-@CrossOrigin
 public class InformationController {
     @Autowired
     private InformationService informationService;
@@ -162,5 +162,17 @@ public class InformationController {
             return MyResult.error();
         }
     }
+
+    /**
+     * 查询一天的注册人数
+     * TODO 待完善
+     */
+    @GetMapping("countRegister/{day}")
+    public MyResult countRegister(@PathVariable String day){
+        Integer count = informationService.countRegisterDay(day);
+        return MyResult.ok().data("countRegister", count);
+    }
+
+
 }
 

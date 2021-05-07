@@ -10,6 +10,7 @@ import com.lwx.common.MyResult;
 import com.lwx.ucenter.entity.Information;
 import com.lwx.ucenter.entity.Member;
 import com.lwx.ucenter.entity.vo.EntryVo;
+import com.lwx.ucenter.entity.vo.ForgetPasswordVo;
 import com.lwx.ucenter.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,13 +28,11 @@ import java.util.List;
  * <p>
  * 会员表 前端控制器
  * </p>
- *
  * @author lwx
  * @since 2021-04-07
  */
 @RestController
 @RequestMapping("/ucenter/member")
-@CrossOrigin
 public class MemberController {
     @Autowired
     private MemberService memberService;
@@ -249,6 +248,23 @@ public class MemberController {
         } else {
             return MyResult.error();
         }
+    }
+
+
+
+    /**
+     * 忘记密码，通过问题进行修改
+     * @param forgetPasswordVo
+     * @return
+     */
+    @PostMapping("forgetPassword")
+    public MyResult forgetPassword(@RequestBody ForgetPasswordVo forgetPasswordVo){
+        QueryWrapper<Member> wrapper = new QueryWrapper<>();
+        wrapper.eq("mobile", forgetPasswordVo.getMobile());
+        Member member = memberService.getOne(wrapper);
+        member.setPassword(MD5.encrypt(forgetPasswordVo.getNewPassword()));
+        memberService.updateById(member);
+        return MyResult.ok();
     }
 }
 

@@ -39,4 +39,6 @@ public interface InformationMapper extends BaseMapper<Information> {
 //            "${ew.customSqlSegment}"+
 //            "LIMIT #{current}, #{limit}")
     List<Information> getInformationList(@Param(Constants.WRAPPER) QueryWrapper<Information> queryWrapper, @Param("current") long current, @Param("limit") long limit);
+
+    Integer countRegisterDay(String day);
 }

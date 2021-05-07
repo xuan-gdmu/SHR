@@ -30,7 +30,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/management/dept")
-@CrossOrigin
 public class DeptController {
 
     @Autowired

@@ -23,4 +23,6 @@ public interface InformationService extends IService<Information>   {
     List<Information> getInformationPageList(QueryWrapper<Information> queryWrapper, long current, long limit);
 //    List<Information> getInformationPageList(long current, long limit, String name, String level);
 //    List<InformationList> getInformationList(QueryWrapper<Information> queryWrapper, long current, long limit);
+
+    Integer countRegisterDay(String day);
 }

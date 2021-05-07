@@ -34,7 +34,6 @@ import java.util.stream.IntStream;
  */
 @RestController
 @RequestMapping("/management/dictionary")
-@CrossOrigin
 public class DictionaryController {
     private DictionaryVo dictionaryVo = DictionaryVo.getInstance();
 

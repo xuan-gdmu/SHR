@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common_utils01" />
+        <module name="service_statistics" />
         <module name="service_base" />
         <module name="service_msm" />
         <module name="service_oss01" />
         <module name="service_ucenter" />
+        <module name="api_gateway" />
         <module name="service_vod01" />
         <module name="service_course" />
         <module name="service_management" />
@@ -29,6 +31,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api_gateway" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="common_utils" options="-parameters" />
       <module name="common_utils01" options="-parameters" />
@@ -42,6 +45,7 @@
       <module name="service_oss (1) (com.atguigu)" options="-parameters" />
       <module name="service_oss (2) (com.lwx)" options="-parameters" />
       <module name="service_oss01" options="-parameters" />
+      <module name="service_statistics" options="-parameters" />
       <module name="service_ucenter" options="-parameters" />
       <module name="service_vod" options="-parameters" />
       <module name="service_vod01" options="-parameters" />

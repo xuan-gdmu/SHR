@@ -19,4 +19,10 @@
         ${ew.customSqlSegment}
         LIMIT #{current},#{limit}
     </select>
+
+    <select id="countRegisterDay" resultType="java.lang.Integer">
+        select count(*)
+        from `information` uc
+        where DATE(uc.gmt_create)=#{day}
+    </select>
 </mapper>

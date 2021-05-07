@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/managementoss/fileoss")
-@CrossOrigin(methods = {RequestMethod.POST})
+//@CrossOrigin(methods = {RequestMethod.POST})
 public class OssController {
 
     @Autowired

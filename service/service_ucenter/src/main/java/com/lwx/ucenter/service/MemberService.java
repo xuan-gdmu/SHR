@@ -26,4 +26,6 @@ public interface MemberService extends IService<Member> {
     List<Member> getMemberList(QueryWrapper<Member> queryWrapper, long current, long limit);
 
     boolean deleteByMobile(String mobile);
+
+
 }

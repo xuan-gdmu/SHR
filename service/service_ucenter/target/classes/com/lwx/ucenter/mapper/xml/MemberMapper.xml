@@ -13,4 +13,6 @@
         FROM `ucenter_member`
         WHERE `mobile` = #{mobile}
     </select>
+    
+
 </mapper>

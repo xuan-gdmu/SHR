@@ -143,4 +143,6 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         boolean flag = baseMapper.deleteByMobile(mobile);
         return flag;
     }
+
+
 }

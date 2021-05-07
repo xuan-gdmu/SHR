@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+
 @Data
 @Component("springContextUtils")
 public class DictionaryVo {
@@ -20,6 +21,7 @@ public class DictionaryVo {
 
     private static DictionaryVo dictionaryVo = null;
 
+    //todo 将调用方法变为返回数组，解决频繁调用数据库的问题
     public static DictionaryVo getInstance() {
         if (dictionaryVo == null) {
             synchronized (DictionaryVo.class) {
