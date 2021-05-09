@@ -33,20 +33,11 @@ public class EduCourse implements Serializable {
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    @ApiModelProperty(value = "课程讲师ID")
-    private String teacherId;
-
-    @ApiModelProperty(value = "课程专业ID")
-    private String subjectId;
-
-    @ApiModelProperty(value = "课程专业父级ID")
-    private String subjectParentId;
-
     @ApiModelProperty(value = "课程标题")
     private String title;
 
-    @ApiModelProperty(value = "课程销售价格，设置为0则可免费观看")
-    private BigDecimal price;
+    @ApiModelProperty(value = "课程所属部门ID")
+    private String departmentId;
 
     @ApiModelProperty(value = "总课时")
     private Integer lessonNum;

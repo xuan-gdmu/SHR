@@ -1,10 +1,12 @@
 package com.lwx.course.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lwx.course.entity.EduCourse;
 import com.lwx.course.mapper.EduCourseMapper;
 import com.lwx.course.service.EduCourseService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -16,5 +18,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
+
 
 }

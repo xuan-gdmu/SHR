@@ -2,7 +2,6 @@ package com.lwx.ucenter.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lwx.common.MD5;
@@ -14,13 +13,9 @@ import com.lwx.ucenter.entity.vo.ForgetPasswordVo;
 import com.lwx.ucenter.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +29,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/ucenter/member")
 public class MemberController {
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     /**
      * 登陆
-     *
-     * @param member
-     * @return
+     * @param member 传入用户的对象
+     * @return token值
      */
     @PostMapping("login")
     public MyResult loginUser(@RequestBody Member member) {
