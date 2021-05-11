@@ -1,4 +1,5 @@
 com\lwx\common\MyResult.class
+com\lwx\common\ResponseUtil.class
 com\lwx\common\MD5.class
 com\lwx\common\ResultCode.class
 com\lwx\common\JwtUtils.class

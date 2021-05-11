@@ -15,9 +15,10 @@ public class ScheduTask {
     private DailyService dailyService;
 
     //在每天凌晨1点，把前一天数据进行数据查询添加
-    @Scheduled(cron = "00 30 00 * * ?")
+    @Scheduled(cron = "00 00 1 * * ?")
     public void task2() {
-        dailyService.registerCountDay(DateUtil.formatDate(DateUtil.addDays(new Date(), -1)));
+        dailyService.registerCountDay(DateUtil.
+                formatDate(DateUtil.addDays(new Date(), -1)));
     }
 
 
