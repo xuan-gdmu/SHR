@@ -9,10 +9,12 @@
         <option value="$PROJECT_DIR$/infrastructure/pom.xml" />
         <option value="$PROJECT_DIR$/common/spring_security/pom.xml" />
         <option value="$PROJECT_DIR$/service/service_acl/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/api_gateway/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/service/api_gateway/pom.xml" />
         <option value="$PROJECT_DIR$/service/management/pom.xml" />
         <option value="$PROJECT_DIR$/service/service_regulator/pom.xml" />
         <option value="$PROJECT_DIR$/service/service_vod/pom.xml" />

@@ -1,12 +1,12 @@
 package com.lwx.course.entity;
 
-import java.math.BigDecimal;
-
-import com.baomidou.mybatisplus.annotation.*;
-
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
-import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author lwx
- * @since 2021-04-27
+ * @since 2021-05-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -36,20 +36,14 @@ public class EduCourse implements Serializable {
     @ApiModelProperty(value = "课程标题")
     private String title;
 
-    @ApiModelProperty(value = "课程所属部门ID")
-    private String departmentId;
-
     @ApiModelProperty(value = "总课时")
     private Integer lessonNum;
 
     @ApiModelProperty(value = "课程封面图片路径")
     private String cover;
 
-    @ApiModelProperty(value = "销售数量")
-    private Long buyCount;
-
-    @ApiModelProperty(value = "浏览数量")
-    private Long viewCount;
+    @ApiModelProperty(value = "课程描述")
+    private String description;
 
     @ApiModelProperty(value = "乐观锁")
     private Long version;
@@ -58,7 +52,6 @@ public class EduCourse implements Serializable {
     private String status;
 
     @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
-    @TableLogic
     private Integer isDeleted;
 
     @ApiModelProperty(value = "创建时间")

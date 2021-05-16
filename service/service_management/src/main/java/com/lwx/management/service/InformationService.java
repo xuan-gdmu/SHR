@@ -6,10 +6,13 @@ import com.lwx.management.entity.Information;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lwx.management.entity.vo.InformationList;
 import com.lwx.management.entity.vo.InformationQuery;
+import com.lwx.management.entity.vo.InformationShow;
+import com.lwx.management.entity.vo.InformationVo;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -25,4 +28,12 @@ public interface InformationService extends IService<Information>   {
 //    List<InformationList> getInformationList(QueryWrapper<Information> queryWrapper, long current, long limit);
 
     Integer countRegisterDay(String day);
+
+    Map<String, List> getpageInformationCondition(long current, long limit, InformationQuery informationQuery);
+
+    boolean addInformation(InformationVo informationvo);
+
+    boolean updateInformation(InformationVo informationvo);
+
+    InformationShow getInformationById(String id);
 }

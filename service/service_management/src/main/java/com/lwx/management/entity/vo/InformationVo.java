@@ -112,6 +112,62 @@ public class InformationVo implements Serializable {
 
     private String employeeId;
 
+    private String id1;
 
+    private String education1;
+
+    private String school1;
+
+    private String major1;
+
+    private String graduationTime1;
+
+    private String id2;
+
+    private String education2;
+
+    private String school2;
+
+    private String major2;
+
+    private String graduationTime2;
+
+    private String id3;
+
+    private String education3;
+
+    private String school3;
+
+    private String major3;
+
+    private String graduationTime3;
+
+    private String exp1;
+
+    private String company1;
+
+    private String position1;
+
+    private String start1;
+
+    private String reason1;
+
+    private String salary1;
+
+    private String end1;
+
+    private String exp2;
+
+    private String company2;
+
+    private String position2;
+
+    private String start2;
+
+    private String reason2;
+
+    private String salary2;
+
+    private String end2;
 }
 

@@ -24,7 +24,7 @@ public class CodeGenerator {
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir("../src/main/java");
+        gc.setOutputDir("E:\\毕设\\SHR\\service\\service_course\\src\\main\\java");
 
         gc.setAuthor("lwx");
         gc.setOpen(true); //生成后是否打开资源管理器
