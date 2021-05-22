@@ -1,0 +1,9 @@
+com\lwx\statistics\controller\DailyController.class
+com\lwx\statistics\mapper\DailyMapper.class
+com\lwx\statistics\entity\Daily.class
+com\lwx\statistics\utils\DateUtil.class
+com\lwx\statistics\service\DailyService.class
+com\lwx\statistics\StaApplication.class
+com\lwx\statistics\client\UcenterClient.class
+com\lwx\statistics\schedu\ScheduTask.class
+com\lwx\statistics\service\impl\DailyServiceImpl.class

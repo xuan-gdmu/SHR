@@ -1,0 +1,5 @@
+com\lwx\gateway\handler\JsonExceptionHandler.class
+com\lwx\gateway\handler\ErrorHandlerConfig.class
+com\lwx\gateway\ApiGatewayApplication.class
+com\lwx\gateway\config\CorsConfig.class
+com\lwx\gateway\filter\AuthGlobalFilter.class
