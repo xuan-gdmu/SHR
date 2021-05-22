@@ -38,7 +38,7 @@ public class InformationController {
     @ApiOperation(value = "逻辑删除信息")
     @DeleteMapping("{id}")
     public MyResult removeInformation(@ApiParam(name = "id", value = "ID", required = true) @PathVariable String id) {
-        boolean flag = informationService.removeById(id);
+        boolean flag = informationService.removeByStaffId(id);
         if(flag) {
             return MyResult.ok();
         } else {
@@ -69,6 +69,7 @@ public class InformationController {
         }else {
             return MyResult.error();
         }
+
     }
 
     @ApiOperation(value = "更新员工详细信息")

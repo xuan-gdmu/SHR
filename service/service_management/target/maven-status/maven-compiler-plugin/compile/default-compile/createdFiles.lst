@@ -27,6 +27,7 @@ com\lwx\management\service\impl\ExperienceServiceImpl.class
 com\lwx\management\service\PostService.class
 com\lwx\management\service\impl\DeptServiceImpl.class
 com\lwx\management\entity\Contract.class
+com\lwx\management\entity\vo\InformationShow.class
 com\lwx\management\entity\Experience.class
 com\lwx\management\entity\Dept.class
 com\lwx\management\mapper\DimissionMapper.class

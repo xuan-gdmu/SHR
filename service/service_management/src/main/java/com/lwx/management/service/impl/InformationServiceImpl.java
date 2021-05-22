@@ -138,6 +138,20 @@ public class InformationServiceImpl extends ServiceImpl<InformationMapper, Infor
         return informationVo;
     }
 
+    @Override
+    public boolean removeByStaffId(String id) {
+        QueryWrapper<EducationBackground> wrapper = new QueryWrapper<>();
+        wrapper.eq("sno", id);
+        educationBackgroundService.remove(wrapper);
+
+        QueryWrapper<Experience> wrapper1 = new QueryWrapper<>();
+        wrapper.eq("sno", id);
+        experienceService.remove(wrapper1);
+
+        informationService.removeById(id);
+        return true;
+    }
+
     private void saveOrUpdateEducationBackGround(InformationVo informationvo, String id) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         EducationBackground educationBackground = new EducationBackground();

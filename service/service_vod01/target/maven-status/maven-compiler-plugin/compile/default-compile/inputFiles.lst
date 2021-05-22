@@ -1,6 +1,9 @@
 E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\service\VodService.java
+E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\client\CourseVideoClient.java
 E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\controller\VodController.java
 E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\utils\InitVodCilent.java
 E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\VodApplication.java
+E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\entity\EduVideo.java
 E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\service\impl\VodServiceImpl.java
+E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\entity\InitObject.java
 E:\毕设\SHR\service\service_vod01\src\main\java\com\lwx\vodservice\utils\ConstantVodUtils.java

@@ -36,4 +36,6 @@ public interface InformationService extends IService<Information>   {
     boolean updateInformation(InformationVo informationvo);
 
     InformationShow getInformationById(String id);
+
+    boolean removeByStaffId(String id);
 }

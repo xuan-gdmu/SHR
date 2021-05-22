@@ -100,8 +100,6 @@ public class EntryController {
     @PostMapping("pageEntryCondition/{current}/{limit}")
     public MyResult pageEntryCondition(@PathVariable long current,@PathVariable long limit,
                                         @RequestBody(required = false) Entry entry) {
-        //创建page对象
-        Page<Entry> entryPage = new Page<>(current,limit);
         //构建条件
         QueryWrapper<Entry> wrapper = new QueryWrapper<>();
         // 多条件组合查询
@@ -133,7 +131,5 @@ public class EntryController {
         List<Entry> records = entryList;
         return MyResult.ok().data("total",count).data("rows",records);
     }
-
-
 }
 

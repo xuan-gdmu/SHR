@@ -21,6 +21,6 @@ public interface EduCourseService extends IService<EduCourse> {
 
     void removeCourse(String courseId);
 
-    Map<String,List> getPageCourse(long current, long limit, CourseQuery courseQuery);
+    Map<String,Object> getPageCourse(long current, long limit, CourseQuery courseQuery);
 
 }

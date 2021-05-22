@@ -10,9 +10,9 @@ import com.lwx.servicebase.exceptionhandler.LWXException;
 import com.lwx.vodservice.service.VodService;
 import com.lwx.vodservice.utils.ConstantVodUtils;
 import com.lwx.vodservice.utils.InitVodCilent;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.InputStream;
 import java.util.List;
@@ -69,4 +69,5 @@ public class VodServiceImpl implements VodService {
             throw new LWXException(20001,"删除视频失败");
         }
     }
+
 }

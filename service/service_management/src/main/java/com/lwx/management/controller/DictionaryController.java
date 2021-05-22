@@ -35,68 +35,30 @@ import java.util.stream.IntStream;
 @RestController
 @RequestMapping("/management/dictionary")
 public class DictionaryController {
-    private DictionaryVo dictionaryVo = DictionaryVo.getInstance();
+    private final DictionaryVo dictionaryVo = DictionaryVo.getInstance();
 
     @Autowired
     private DictionaryService dictionaryService;
 
-//    @GetMapping("getEmployeeType")
-//    public MyResult getEmployeeType() {
-//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-//        dictionaryQueryWrapper.eq("dic_name","员工类型");
-//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-//        return MyResult.ok().data("dic",dictionaryList);
-//    }
-//    @GetMapping("getEmployeeStatus")
-//    public MyResult getInformationById() {
-//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-//        dictionaryQueryWrapper.eq("dic_name","员工状态");
-//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-//        return MyResult.ok().data("dic",dictionaryList);
-//    }
-//    @GetMapping("getProbation")
-//    public MyResult getProbation() {
-//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-//        dictionaryQueryWrapper.eq("dic_name","试用期");
-//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-//        return MyResult.ok().data("dic",dictionaryList);
-//    }
-//    @GetMapping("getDocumentType")
-//    public MyResult getDocumentType() {
-//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-//        dictionaryQueryWrapper.eq("dic_name","证件类型");
-//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-//        return MyResult.ok().data("dic",dictionaryList);
-//    }
-//    @GetMapping("getBank")
-//    public MyResult getBank() {
-//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-//        dictionaryQueryWrapper.eq("dic_name","开户银行");
-//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-//        return MyResult.ok().data("dic",dictionaryList);
-//    }
-//    @GetMapping("getPoliticalStatus")
-//    public MyResult getPoliticalStatus() {
-//        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-//        dictionaryQueryWrapper.eq("dic_name","政治面貌");
-//        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-//        return MyResult.ok().data("dic",dictionaryList);
-//    }
-
     @GetMapping("getSelections")
     public MyResult getSelections() {
-        return MyResult.ok().data("staffType", dictionaryVo.getStaffType(dictionaryService))
-                .data("staffStatus", dictionaryVo.getStaffStatus(dictionaryService))
-                .data("bank", dictionaryVo.getBank(dictionaryService))
-                .data("documentType", dictionaryVo.getDocumentType(dictionaryService))
-                .data("politicalStatus", dictionaryVo.getPoliticalStatus(dictionaryService))
-                .data("probation", dictionaryVo.getProbation(dictionaryService));
+        if(dictionaryVo.getStaffType() ==null){
+            dictionaryVo.refreshList(dictionaryService);
+        }
+        return MyResult.ok().data("staffType", dictionaryVo.getStaffType())
+                .data("staffStatus", dictionaryVo.getStaffStatus())
+                .data("bank", dictionaryVo.getBank())
+                .data("documentType", dictionaryVo.getDocumentType())
+                .data("politicalStatus", dictionaryVo.getPoliticalStatus())
+                .data("probation", dictionaryVo.getProbation())
+                .data("education", dictionaryVo.getEducation());
     }
 
     @PostMapping("addDictionary")
     public MyResult addDictionary(@RequestBody Dictionary dictionary) {
         boolean save = dictionaryService.save(dictionary);
         if (save) {
+            dictionaryVo.refreshList(dictionaryService);
             return MyResult.ok();
         } else {
             return MyResult.error();
@@ -127,7 +89,6 @@ public class DictionaryController {
         //排序
         wrapper.orderByAsc("dic_name");
         wrapper.orderByAsc("code_index");
-//        wrapper.orderByDesc("gmt_create");
 
         //调用方法实现条件查询分页
         dictionaryService.page(dictionaryPage, wrapper);
@@ -142,6 +103,7 @@ public class DictionaryController {
     public MyResult deleteById(@ApiParam(name = "id", value = "ID", required = true) @PathVariable String id) {
         boolean flag = dictionaryService.removeById(id);
         if (flag) {
+            dictionaryVo.refreshList(dictionaryService);
             return MyResult.ok();
         } else {
             return MyResult.error();

@@ -33,10 +33,9 @@ public class EduCourseController {
 
     @ApiOperation(value = "根据前端条件，分页查询返回数据")
     @PostMapping("pageCourse/{current}/{limit}")
-    public MyResult pageCourse(@PathVariable long current, @PathVariable long limit,
-                               @RequestBody(required = false) CourseQuery courseQuery) {
-        Map<String,List> map = courseService.getPageCourse(current, limit, courseQuery);
-        return MyResult.ok().data("total", map.get("total").get(0)).data("rows", map.get("records"));
+    public MyResult pageCourse(@PathVariable long current, @PathVariable long limit, @RequestBody(required = false) CourseQuery courseQuery) {
+        Map<String,Object> map = courseService.getPageCourse(current, limit, courseQuery);
+        return MyResult.ok().data("total", map.get("total")).data("rows", map.get("records"));
     }
 
     //添加课程基本信息的方法

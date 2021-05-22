@@ -43,6 +43,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     /**
      * 根据课程id查询课程确认信息
+     *
      * @param id
      * @return
      */
@@ -53,6 +54,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     /**
      * 删除课程(包括章节记录、视频记录)
+     *
      * @param courseId
      */
     @Override
@@ -65,22 +67,23 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         //3 根据课程id删除课程本身
         int result = baseMapper.deleteById(courseId);
-        if(result == 0) { //失败返回
-            throw new LWXException(20001,"删除失败");
+        if (result == 0) { //失败返回
+            throw new LWXException(20001, "删除失败");
         }
     }
 
     /**
      * 分页查询，返回Map
+     *
      * @param current
      * @param limit
      * @param courseQuery
      * @return
      */
     @Override
-    public Map<String,List> getPageCourse(long current, long limit, CourseQuery courseQuery) {
+    public Map<String, Object> getPageCourse(long current, long limit, CourseQuery courseQuery) {
 //        current = (current - 1) * 10;
-        Page<EduCourse> eduCoursePage = new Page<>(current,limit);
+        Page<EduCourse> eduCoursePage = new Page<>(current, limit);
         QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
         // 多条件组合查询,mybatis学过 动态sql
         String name = courseQuery.getCourseName();
@@ -92,17 +95,17 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         }
         if (!StringUtils.isEmpty(station)) {
             wrapper.eq("status", station);
+        } else {
+            wrapper.in("status", "Draft", "Normal");
         }
         wrapper.eq("is_deleted", 0);
         wrapper.orderByDesc("gmt_create");
         eduCourseService.page(eduCoursePage, wrapper);
         long total = eduCoursePage.getTotal();//总记录数
-        ArrayList<Object> objects = new ArrayList<>();
-        objects.add(total);
         List<EduCourse> records = eduCoursePage.getRecords(); //数据list集合
 
-        Map<String, List> map = new HashMap<>();
-        map.put("total", objects);
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", total);
         map.put("records", records);
         return map;
     }

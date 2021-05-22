@@ -5,23 +5,27 @@ import com.lwx.common.MyResult;
 import com.lwx.management.entity.Dictionary;
 import com.lwx.management.service.DictionaryService;
 import lombok.Data;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 单例模式
+ */
 @Data
 @Component("springContextUtils")
 public class DictionaryVo {
+
     private DictionaryVo() {
     }
 
     private static DictionaryVo dictionaryVo = null;
 
-    //todo 将调用方法变为返回数组，解决频繁调用数据库的问题
     public static DictionaryVo getInstance() {
         if (dictionaryVo == null) {
             synchronized (DictionaryVo.class) {
@@ -33,46 +37,28 @@ public class DictionaryVo {
         return dictionaryVo;
     }
 
-    public List<Dictionary> getStaffType(DictionaryService dictionaryService) {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name", "员工类型");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return dictionaryList;
+    // 定义数组封装需要返回的数据
+    private List<Dictionary> staffType;
+    private List<Dictionary> staffStatus;
+    private List<Dictionary> probation;
+    private List<Dictionary> documentType;
+    private List<Dictionary> bank;
+    private List<Dictionary> politicalStatus;
+    private List<Dictionary> education;
 
+    public void refreshList(DictionaryService dictionaryService) {
+        staffType = getList(dictionaryService, "员工类型");
+        staffStatus = getList(dictionaryService, "员工状态");
+        probation = getList(dictionaryService, "试用期");
+        documentType = getList(dictionaryService, "证件类型");
+        bank = getList(dictionaryService, "开户银行");
+        politicalStatus = getList(dictionaryService, "政治面貌");
+        education = getList(dictionaryService, "学历");
     }
 
-    public List<Dictionary> getStaffStatus(DictionaryService dictionaryService) {
+    private List<Dictionary> getList(DictionaryService dictionaryService, Object str) {
         QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name", "员工状态");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return dictionaryList;
-    }
-
-    public List<Dictionary> getProbation(DictionaryService dictionaryService) {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name", "试用期");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return dictionaryList;
-    }
-
-    public List<Dictionary> getDocumentType(DictionaryService dictionaryService) {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name", "证件类型");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return dictionaryList;
-    }
-
-    public List<Dictionary> getBank(DictionaryService dictionaryService) {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name", "开户银行");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return dictionaryList;
-    }
-
-    public List<Dictionary> getPoliticalStatus(DictionaryService dictionaryService) {
-        QueryWrapper<Dictionary> dictionaryQueryWrapper = new QueryWrapper<>();
-        dictionaryQueryWrapper.eq("dic_name", "政治面貌");
-        List<Dictionary> dictionaryList = dictionaryService.list(dictionaryQueryWrapper);
-        return dictionaryList;
+        dictionaryQueryWrapper.eq("dic_name", str);
+        return dictionaryService.list(dictionaryQueryWrapper);
     }
 }
