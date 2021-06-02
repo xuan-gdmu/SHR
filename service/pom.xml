@@ -13,9 +13,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>service_management</module>
-        <module>service_oss01</module>
-        <module>service_vod01</module>
-        <module>service_ucenter</module>
+        <module>service_oss</module>
+        <module>service_vod</module>
+        <module>service_user_center</module>
         <module>service_msm</module>
         <module>service_course</module>
         <module>service_statistics</module>

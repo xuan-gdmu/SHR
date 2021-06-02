@@ -1,6 +1,5 @@
 package com.lwx.common;
 
-import com.google.common.annotations.VisibleForTesting;
 import org.junit.Test;
 
 import java.security.MessageDigest;

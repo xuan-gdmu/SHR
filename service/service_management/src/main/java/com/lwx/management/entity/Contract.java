@@ -1,11 +1,9 @@
 package com.lwx.management.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,8 +16,8 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author testjava
- * @since 2021-03-30
+ * @author lwx
+ * @since 2021-05-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -29,18 +27,25 @@ public class Contract implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /** MP全局唯一ID策略，自动生成19位字符ID，用于唯一标识，无实际意义 */
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
-    private Long id;
+    private String id;
+
+    private String employeeId;
 
     private String name;
 
-    private Long contid;
+    private String staffdept;
+
+    private String staffpost;
+
+    private String contid;
 
     private String conttype;
 
     private String constate;
 
-    private Date conttimelimit;
+    private Integer conttimelimit;
 
     private Date contstart;
 
@@ -55,5 +60,10 @@ public class Contract implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
+
+    @ApiModelProperty(value = "逻辑删除 1（true）已删除， 0（false）未删除")
+    @TableLogic
+    private Boolean isDelete;
+
 
 }

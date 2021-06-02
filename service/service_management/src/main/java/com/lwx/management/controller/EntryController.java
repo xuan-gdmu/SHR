@@ -70,7 +70,7 @@ public class EntryController {
     }
 
 
-    //删除岗位的方法
+    //删除入职信息的方法
     @ApiOperation(value = "逻辑删除岗位")
     @DeleteMapping("/deleteById/{id}")
     public MyResult removeById(@ApiParam(name = "id", value = "ID", required = true)
@@ -100,6 +100,8 @@ public class EntryController {
     @PostMapping("pageEntryCondition/{current}/{limit}")
     public MyResult pageEntryCondition(@PathVariable long current,@PathVariable long limit,
                                         @RequestBody(required = false) Entry entry) {
+        //创建page对象
+        Page<Entry> entryPage = new Page<>(current,limit);
         //构建条件
         QueryWrapper<Entry> wrapper = new QueryWrapper<>();
         // 多条件组合查询
@@ -124,12 +126,14 @@ public class EntryController {
             wrapper.eq("entrypost",entrypost);
         }
         wrapper.eq("is_delete", 0);
-        current = (current - 1) * 10;
+        current = (current - 1) * limit;
         List<Entry> entryList = entryService.getSelectEntryPage(wrapper, current, limit);
         int count = entryService.count(wrapper);
         //数据list集合
         List<Entry> records = entryList;
         return MyResult.ok().data("total",count).data("rows",records);
     }
+
+
 }
 

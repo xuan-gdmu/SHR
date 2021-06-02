@@ -72,6 +72,7 @@ public class DailyServiceImpl extends ServiceImpl<DailyMapper, Daily> implements
         QueryWrapper<Daily> wrapper = new QueryWrapper<>();
         wrapper.between("date_calculated", begin, end);
         wrapper.select("date_calculated", type);
+        wrapper.orderByAsc("date_calculated");
         List<Daily> staList = baseMapper.selectList(wrapper);
 
         //因为返回有两部分数据：日期 和 日期对应数量
@@ -81,8 +82,7 @@ public class DailyServiceImpl extends ServiceImpl<DailyMapper, Daily> implements
         List<Integer> numDataList = new ArrayList<>();
 
         //遍历查询所有数据list集合，进行封装
-        for (int i = 0; i < staList.size(); i++) {
-            Daily daily = staList.get(i);
+        for (Daily daily : staList) {
             //封装日期list集合
             date_calculatedList.add(daily.getDateCalculated());
             //封装对应数量
