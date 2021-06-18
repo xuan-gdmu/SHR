@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwx.management.mapper.EntryMapper">
+    <select id="getSelectEntry" resultType="com.lwx.management.entity.Entry">
+        SELECT t.`id`                   as   id,
+               t.`name`                 as   name,
+               t.`employee_id`          as   employee_id,
+               d.`dname`                as   entrydept,
+               p.`dname`                as   entrypost,
+               t.`phonenum`             as   phonenum ,
+               t.`identitynum`          as   identitynum,
+               t.`expectedtime`         as   expectedtime,
+               t.`email`                as   email,
+               t.`entryregister`        as   entryregister,
+               t.`gmt_create`           as   gmt_create,
+                t.`apprmsg`             as   apprmsg,
+                t.`operator`            as   operator
+        FROM   `entry` t        LEFT JOIN `dept` d     on t.`entrydept` = d.`id`
+                                LEFT JOIN `post` p     on t.`entrypost` = p.`id`
+        ${ew.customSqlSegment}
+        LIMIT #{current},#{limit}
+    </select>
+</mapper>

@@ -64,7 +64,6 @@ public class EduChapterController {
         } else {
             return MyResult.error();
         }
-
     }
 }
 

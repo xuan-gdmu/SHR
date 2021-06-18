@@ -55,9 +55,6 @@ public class EduVideoController {
         return MyResult.ok();
     }
 
-    //修改小节 TODO
-
-
     @GetMapping("getVideoInfoById/{id}")
     public MyResult getVideoInfoById(@PathVariable String id){
         EduVideo eduVideo = videoService.getById(id);

@@ -75,8 +75,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
         //登录成功
         //生成token字符串，使用jwt工具类
-        String jwtToken = com.lwx.common.JwtUtils.getJwtToken(mobileMember.getId(), mobileMember.getNickname());
-        return jwtToken;
+        return com.lwx.common.JwtUtils.getJwtToken(mobileMember.getId(), mobileMember.getNickname());
     }
 
     /**

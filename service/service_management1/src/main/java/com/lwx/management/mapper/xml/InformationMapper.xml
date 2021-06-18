@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwx.management.mapper.InformationMapper">
+    <select id="getInformationList" resultType="com.lwx.management.entity.Information">
+        SELECT t.`id`           as   id,
+               t.`name`         as   name,
+               t.`employee_id`  as   employee_id,
+               d.`dname`        as   deptno,
+               p.`dname`        as   postno,
+               t.`phoneno`      as   phone ,
+               t.`email`        as   email,
+               t.`join_date`    as   join_date,
+               t.`staff_type`   as   staff_type,
+               t.`is_delete`    as   is_delete,
+               t.`staff_status` as   staff_status,
+               t.`gmt_create`   as   gmt_create
+        FROM `information` t LEFT JOIN `dept` d     on t.`deptno` = d.`id`
+                             LEFT JOIN `post` p     on t.`postno` = p.`id`
+        ${ew.customSqlSegment}
+        LIMIT #{current},#{limit}
+    </select>
+
+    <select id="countRegisterDay" resultType="java.lang.Integer">
+        select count(*)
+        from `information` uc
+        where DATE(uc.gmt_create)=#{day}
+    </select>
+</mapper>

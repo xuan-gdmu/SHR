@@ -20,9 +20,15 @@
         <module>service_course</module>
         <module>service_statistics</module>
         <module>service_acl</module>
+        <module>service_management1</module>
     </modules>
 
     <dependencies>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>1.8.1</version>
+        </dependency>
         <dependency>
             <groupId>com.lwx</groupId>
             <artifactId>common_utils01</artifactId>
@@ -41,6 +47,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+
 
 <!--        hystrix依赖，主要是用  @HystrixCommand -->
         <dependency>
@@ -139,12 +151,12 @@
 
     <build>
 
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
 
         <resources>
             <resource>

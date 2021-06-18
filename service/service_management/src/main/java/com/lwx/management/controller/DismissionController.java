@@ -48,42 +48,6 @@ public class DismissionController {
         return MyResult.ok().data("dismission",byId);
     }
 
-//    @PostMapping("pageDismissionCondition/{current}/{limit}")
-//    public MyResult pageDismissionCondition(@PathVariable long current,@PathVariable long limit,
-//                                          @RequestBody(required = false) DismissionQuery dismissionQuery) {
-//        //创建page对象
-//        Page<Dismission> dismissionPage = new Page<>(current,limit);
-//        //构建条件
-//        QueryWrapper<Dismission> wrapper = new QueryWrapper<>();
-//        // 多条件组合查询
-//        // mybatis学过 动态sql
-//        String name = dismissionQuery.getName();
-//        String dept = dismissionQuery.getDept();
-//        String approvalmsg = dismissionQuery.getApprovalmsg();
-//
-//        //判断条件值是否为空，如果不为空拼接条件
-//        if(!StringUtils.isEmpty(name)) {
-//            //构建条件
-//            wrapper.like("name",name);
-//        }
-//        if(!StringUtils.isEmpty(dept)) {
-//            wrapper.eq("dept",dept);
-//        }
-//        if(!StringUtils.isEmpty(approvalmsg)) {
-//            wrapper.ge("approvalmsg",approvalmsg);
-//        }
-////        if(!StringUtils.isEmpty(contend)) {
-////            wrapper.le("contend",contend);
-////        }
-//        wrapper.eq("is_delete", 0);
-//        current = (current - 1) * 3;
-//        List<Dismission> dismissionList = dismissionService.getSelectDismissionPage(wrapper, current, limit);
-//        int count = dismissionService.count(wrapper);
-//        //数据list集合
-//        List<Dismission> records = dismissionList;
-//        return MyResult.ok().data("total",count).data("rows",records);
-//    }
-
     @PostMapping("pageDismissionCondition/{current}/{limit}")
     public MyResult pageDismissionCondition(@PathVariable long current,@PathVariable long limit,
                                             @RequestBody(required = false) DismissionQuery dismissionQuery) {

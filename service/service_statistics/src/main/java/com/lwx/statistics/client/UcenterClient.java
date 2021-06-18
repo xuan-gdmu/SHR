@@ -15,6 +15,4 @@ public interface UcenterClient {
      */
     @GetMapping("/management/information/countRegister/{day}")
     public MyResult countRegister(@PathVariable("day") String day);
-
-
 }

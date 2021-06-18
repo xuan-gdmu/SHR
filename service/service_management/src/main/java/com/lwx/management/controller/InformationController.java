@@ -100,7 +100,6 @@ public class InformationController {
 
     /**
      * 查询一天的注册人数
-     * TODO 待完善
      */
     @GetMapping("countRegister/{day}")
     public MyResult countRegister(@PathVariable String day){

@@ -38,7 +38,7 @@ public class MemberController {
     /**
      * 登陆
      * @param member 传入用户的对象
-     * @return token值
+     * @return token值http://localhost:9528/#/login
      */
     @PostMapping("login")
     public MyResult loginUser(@RequestBody Member member) {
@@ -89,7 +89,6 @@ public class MemberController {
 
     /**
      * 分页查询
-     *
      * @param current
      * @param limit
      * @param member
